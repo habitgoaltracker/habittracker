@@ -1,6 +1,7 @@
-package is.hi.hbv501g.habittracker.Services;
+package is.hi.hbv501g.habittracker.Persistence.Repositories;
 
 import is.hi.hbv501g.habittracker.Persistence.Entities.Habit;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
@@ -11,11 +12,10 @@ import java.util.List;
 
  lýsing:
  **************************************************************/
-public interface HabitService {
-    Habit findByName(String Name);
-    Habit findByID(long ID);
-
-    List<Habit> findAll();
+public interface HabitRepository extends JpaRepository<Habit, Long> {
     Habit save(Habit habit);
     void delete(Habit habit);
+    List<Habit> findAll();
+    List<Habit> findByName(String name);
+    Habit findByID(long id);
 }
