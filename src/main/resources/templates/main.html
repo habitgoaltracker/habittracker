@@ -1,10 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://thymelaef.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Main</title>
 </head>
 <body>
-Halló heimur!
+<div th:switch="${habits}">
+    <h2 th:case="null">No habits!</h2>
+    <div th:case="*">
+        <h2>Habits</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Streak length</th>
+                    <th>Highest streak</th>
+                    <th>Last date completed</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="habit : ${habits}">
+                    <td th:text="${habit.name}"></td>
+                    <td th:text="${habit.streak}"></td>
+                    <td th:text="${habit.highestStreak}"></td>
+                    <td th:text="${habit.lastDate}"></td>
+                    <td><a th:href="@{/delete/{id}(id=${book.ID})}"></a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <p><a href="/addhabit">Add a new habit</a> </p>
+</div>
 </body>
 </html>
