@@ -1,14 +1,24 @@
 package is.hi.hbv501g.habittracker.Persistence.Entities;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "habits")
 public class Habit {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long ID;
+
     private String name;
     private String category;
     private int streak;
     private int highestStreak;
     private LocalDate lastDate;
+
+    public Habit() {
+
+    }
 
     public Habit(String name, String category, int streak, int highestStreak, LocalDate lastDate) {
         this.name = name;

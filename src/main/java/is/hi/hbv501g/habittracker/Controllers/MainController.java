@@ -11,11 +11,13 @@ import java.util.List;
 
 @Controller
 public class MainController {
-    private HabitService habitService;
 
     @Autowired
+    private final HabitService habitService;
+
     public MainController(HabitService habitService){
         this.habitService = habitService;
+        System.out.println("build controller");
     }
 
     @RequestMapping("/")

@@ -1,13 +1,8 @@
 package is.hi.hbv501g.habittracker.Services.Implementation;
 
 import is.hi.hbv501g.habittracker.Services.UserService;
+import org.springframework.stereotype.Service;
 
-/**************************************************************
-
- nafn: Árni Björn Óskarsson
- t-póstur: abo25@gmail.com
-
- lýsing:
- **************************************************************/
+@Service
 public class UserServiceImplementation implements UserService {
 }
