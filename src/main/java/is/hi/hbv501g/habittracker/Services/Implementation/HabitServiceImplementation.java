@@ -4,18 +4,14 @@ import is.hi.hbv501g.habittracker.Persistence.Entities.Habit;
 import is.hi.hbv501g.habittracker.Persistence.Repositories.HabitRepository;
 import is.hi.hbv501g.habittracker.Services.HabitService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**************************************************************
-
- nafn: Árni Björn Óskarsson
- t-póstur: abo25@gmail.com
-
- lýsing:
- **************************************************************/
+@Service
 public class HabitServiceImplementation implements HabitService {
     private HabitRepository habitRepository;
+
     @Autowired
     public HabitServiceImplementation(HabitRepository habitRepository){
         this.habitRepository = habitRepository;
