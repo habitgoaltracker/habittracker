@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymelaef.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add a new habit</title>
+</head>
+<body>
+<form action="#" th:action="@{/addhabit}" th:object="${habit}" method="post">
+    <label for="habitName">Name</label>
+    <input type="text" th:field="*{habitName}" id="habitName" placeholder="Name">
+    <span th:if="${#fields.hasErrors('habitName')}" th:errors="*{habitName}"></span>
+
+    <label for="category">Category</label>
+    <input type="text" th:field="*{category}" id="category" placeholder="Category">
+    <span th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></span>
+
+    <input type="submit" value="Add Book">
+</form>
+
+</body>
+</html>
