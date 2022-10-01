@@ -5,7 +5,10 @@ import is.hi.hbv501g.habittracker.Services.HabitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
@@ -25,5 +28,25 @@ public class MainController {
         List<Habit> allHabits = habitService.findAll();
         model.addAttribute("habits", allHabits);
         return "main";
+    }
+
+    @RequestMapping(value="/addhabit", method = RequestMethod.GET)
+    public String addHabitForm(Habit habit){
+        return "newHabit";
+    }
+
+    @RequestMapping(value="/addhabit", method = RequestMethod.POST)
+    public String addHabit(Habit habit, BindingResult result, Model model){
+        if (result.hasErrors()){
+            return "newHabit";
+        }
+        habitService.save(habit);
+        return "redirect:/";
+    }
+
+    @RequestMapping(value="/delete/{id}", method = RequestMethod.GET)
+    public String deleteHabit(@PathVariable("id") long id, Model model){
+        Habit habitToDelete = habitService.findByID(id);
+        return "redirect:/";
     }
 }

@@ -10,7 +10,7 @@ public class Habit {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long ID;
 
-    private String name;
+    private String habitName;
     private String category;
     private int streak;
     private int highestStreak;
@@ -21,7 +21,7 @@ public class Habit {
     }
 
     public Habit(String name, String category, int streak, int highestStreak, LocalDate lastDate) {
-        this.name = name;
+        this.habitName = name;
         this.category = category;
         this.streak = streak;
         this.highestStreak = highestStreak;
@@ -37,11 +37,11 @@ public class Habit {
     }
 
     public String getName() {
-        return name;
+        return habitName;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.habitName = name;
     }
 
     public String getCategory() {
