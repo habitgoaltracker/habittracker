@@ -5,12 +5,14 @@ import is.hi.hbv501g.habittracker.Persistence.Repositories.HabitRepository;
 import is.hi.hbv501g.habittracker.Services.HabitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import javax.persistence.*;
 
 import java.util.List;
 
 @Service
 public class HabitServiceImplementation implements HabitService {
-    private HabitRepository habitRepository;
+
+    private final HabitRepository habitRepository;
 
     @Autowired
     public HabitServiceImplementation(HabitRepository habitRepository){

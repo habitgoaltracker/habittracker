@@ -5,17 +5,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**************************************************************
-
- nafn: Árni Björn Óskarsson
- t-póstur: abo25@gmail.com
-
- lýsing:
- **************************************************************/
-
 @Service
 public interface HabitService {
-    Habit findByName(String Name);
+    Habit findByName(String name);
     Habit findByID(long ID);
     List<Habit> findAll();
     Habit save(Habit habit);

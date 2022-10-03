@@ -1,5 +1,7 @@
 package is.hi.hbv501g.habittracker.Persistence.Entities;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -10,7 +12,7 @@ public class Habit {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long ID;
 
-    private String habitName;
+    private String name;
     private String category;
     private int streak;
     private int highestStreak;
@@ -21,7 +23,7 @@ public class Habit {
     }
 
     public Habit(String name, String category, int streak, int highestStreak, LocalDate lastDate) {
-        this.habitName = name;
+        this.name = name;
         this.category = category;
         this.streak = streak;
         this.highestStreak = highestStreak;
@@ -37,11 +39,11 @@ public class Habit {
     }
 
     public String getName() {
-        return habitName;
+        return name;
     }
 
     public void setName(String name) {
-        this.habitName = name;
+        this.name = name;
     }
 
     public String getCategory() {
