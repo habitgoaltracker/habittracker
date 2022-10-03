@@ -9,15 +9,17 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @Controller
 public class MainController {
 
-    @Autowired
+
     private final HabitService habitService;
 
+    @Autowired
     public MainController(HabitService habitService){
         this.habitService = habitService;
         System.out.println("build controller");
