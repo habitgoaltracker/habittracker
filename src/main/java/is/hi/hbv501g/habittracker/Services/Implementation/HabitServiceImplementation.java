@@ -9,6 +9,9 @@ import javax.persistence.*;
 
 import java.util.List;
 
+/**
+ * Documentation of following methods can be found in the corresponding Service interface.
+ */
 @Service
 public class HabitServiceImplementation implements HabitService {
 

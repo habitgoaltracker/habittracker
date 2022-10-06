@@ -23,6 +23,11 @@ public class MainController {
         this.habitService = habitService;
     }
 
+    /**
+     * Route for requests to "/" path (the root).
+     *
+     * @return String with path to "main" html file.
+     */
     @RequestMapping("/")
     public String mainPage(Model model){
         List<Habit> allHabits = habitService.findAll();
@@ -30,11 +35,24 @@ public class MainController {
         return "main";
     }
 
+    /**
+     * Route for requests to "/addhabit" path.
+     * Displays a form that users can fill out for habit creation.
+     *
+     * @return String with path to "newHabit" html file.
+     */
     @RequestMapping(value="/addhabit", method = RequestMethod.GET)
     public String addHabitForm(Habit habit){
         return "newHabit";
     }
 
+    /**
+     * Route for requests to "/addhabit" path.
+     * Gathers the results from a filled out "newHabit.html" form and creates a new Habit object with them.
+     * Habit object is then saved and stored in database.
+     *
+     * @return String with path to route /.
+     */
     @RequestMapping(value="/addhabit", method = RequestMethod.POST)
     public String addHabit(Habit habit, BindingResult result, Model model){
         if (result.hasErrors()){
@@ -44,6 +62,13 @@ public class MainController {
         return "redirect:/";
     }
 
+    /**
+     * Route for requests to "/delete/{id}" path.
+     * Deletes a habit.
+     *
+     * @param id id of the habit to delete.
+     * @return String with path to route /.
+     */
     @RequestMapping(value="/delete/{id}", method = RequestMethod.GET)
     public String deleteHabit(@PathVariable("id") long id, Model model){
         habitService.deleteByID(id);
