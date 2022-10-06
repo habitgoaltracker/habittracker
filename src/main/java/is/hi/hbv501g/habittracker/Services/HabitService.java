@@ -11,5 +11,5 @@ public interface HabitService {
     Habit findByID(long ID);
     List<Habit> findAll();
     Habit save(Habit habit);
-    void delete(Habit habit);
+    void deleteByID(long ID);
 }
