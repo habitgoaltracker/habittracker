@@ -9,7 +9,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -22,7 +21,6 @@ public class MainController {
     @Autowired
     public MainController(HabitService habitService){
         this.habitService = habitService;
-        System.out.println("build controller");
     }
 
     @RequestMapping("/")
@@ -48,7 +46,7 @@ public class MainController {
 
     @RequestMapping(value="/delete/{id}", method = RequestMethod.GET)
     public String deleteHabit(@PathVariable("id") long id, Model model){
-        Habit habitToDelete = habitService.findByID(id);
+        habitService.deleteByID(id);
         return "redirect:/";
     }
 }

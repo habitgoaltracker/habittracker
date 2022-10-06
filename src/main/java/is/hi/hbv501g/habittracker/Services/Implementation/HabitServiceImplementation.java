@@ -40,7 +40,5 @@ public class HabitServiceImplementation implements HabitService {
     }
 
     @Override
-    public void delete(Habit habit) {
-        habitRepository.delete(habit);
-    }
+    public void deleteByID(long ID) { habitRepository.deleteById(ID); }
 }
