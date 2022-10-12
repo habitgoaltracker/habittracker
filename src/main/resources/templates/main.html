@@ -25,6 +25,7 @@
                     <td th:text="${habit.streak}"></td>
                     <td th:text="${habit.highestStreak}"></td>
                     <td th:text="${habit.lastDate}"></td>
+                    <td><a th:href="@{/update/{id}(id=${habit.ID})}">Done</a></td>
                     <td><a th:href="@{/delete/{id}(id=${habit.ID})}">Delete</a></td>
                 </tr>
             </tbody>

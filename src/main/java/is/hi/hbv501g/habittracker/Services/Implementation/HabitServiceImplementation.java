@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.persistence.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -44,4 +45,23 @@ public class HabitServiceImplementation implements HabitService {
 
     @Override
     public void deleteByID(long ID) { habitRepository.deleteById(ID); }
+
+    @Override
+    public void updateHabitByID(long id) {
+        Habit habit = findByID(id);
+        int streak = habit.getStreak();
+        int currStreak = streak + 1;
+        int highStreak = habit.getHighestStreak();
+
+        habit.setStreak(currStreak);
+
+        if(currStreak > highStreak){
+            habit.setHighestStreak(currStreak);
+        }
+
+        LocalDate date = LocalDate.now();
+        habit.setLastDate(date);
+
+        save(habit);
+    }
 }

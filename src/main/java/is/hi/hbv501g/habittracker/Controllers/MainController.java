@@ -75,6 +75,9 @@ public class MainController {
         return "redirect:/";
     }
 
-
-
+    @RequestMapping(value="/update/{id}", method = RequestMethod.GET)
+    public String updateStreakHabit(@PathVariable("id") long id, Model model){
+        habitService.updateHabitByID(id);
+        return "redirect:/";
+    }
 }

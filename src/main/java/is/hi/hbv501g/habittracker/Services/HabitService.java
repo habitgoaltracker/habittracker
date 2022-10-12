@@ -41,4 +41,6 @@ public interface HabitService {
      * @param ID ID of the habit to be deleted.
      */
     void deleteByID(long ID);
+
+    void updateHabitByID(long id);
 }
