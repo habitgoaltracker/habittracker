@@ -74,4 +74,6 @@ public class MainController {
         habitService.deleteByID(id);
         return "redirect:/";
     }
+
+
 }
