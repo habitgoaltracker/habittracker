@@ -4,11 +4,13 @@ import is.hi.hbv501g.habittracker.Persistence.Entities.Habit;
 import is.hi.hbv501g.habittracker.Persistence.Repositories.HabitRepository;
 import is.hi.hbv501g.habittracker.Services.HabitService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 import org.springframework.stereotype.Service;
 import javax.persistence.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Documentation of following methods can be found in the corresponding Service interface.
@@ -52,15 +54,27 @@ public class HabitServiceImplementation implements HabitService {
         int streak = habit.getStreak();
         int currStreak = streak + 1;
         int highStreak = habit.getHighestStreak();
+        LocalDate currDate = LocalDate.now();
 
-        habit.setStreak(currStreak);
-
-        if(currStreak > highStreak){
-            habit.setHighestStreak(currStreak);
+        if(habit.getLastDate() != currDate.minusDays(1)) {
+            if(habit.getLastDate() == null){
+                habit.setLastDate(currDate);
+                habit.setStreak(1);
+            }
+            else if(!habit.getLastDate().equals(currDate)){
+                currStreak = 0;
+                habit.setStreak(0);
+            }
         }
 
-        LocalDate date = LocalDate.now();
-        habit.setLastDate(date);
+        else if (habit.getLastDate().equals(currDate.minusDays(1))) {
+            habit.setStreak(currStreak);
+            habit.setLastDate(currDate);
+        }
+
+        if(habit.getStreak() > highStreak){
+            habit.setHighestStreak(currStreak);
+        }
 
         save(habit);
     }
