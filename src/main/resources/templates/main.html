@@ -33,5 +33,58 @@
     </div>
     <p><a href="/addhabit">Add a new habit</a> </p>
 </div>
+<div th:switch="${goals}">
+    <h2 th:case="null">No goals!</h2>
+    <div th:case="*">
+        <h2>Goals</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Streak length</th>
+                <th>Highest streak</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="goal : ${goals}">
+                <td th:text="${goal.goalName}"></td>
+                <td th:text="${goal.goalCompleted}"></td>
+                <td th:text="${goal.goalProgress}"></td>
+                <td><a th:href="@{/updateGoal/{id}(id=${goal.ID})}">Done</a></td>
+                <td><a th:href="@{/deleteGoal/{id}(id=${goal.ID})}">Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p><a href="/addgoal">Add a new habit</a> </p>
+</div>
+<div th:switch="${tasks}">
+    <h2 th:case="null">No tasks!</h2>
+    <div th:case="*">
+        <h2>Tasks</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Due date</th>
+                <th>Description</th>
+                <th>Completed</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="task: ${tasks}">
+                <td th:text="${task.taskName}"></td>
+                <td th:text="${task.taskCompleted}"></td>
+                <td th:text="${task.taskDueDate}"></td>
+                <td th:text="${task.taskDescription}"></td>
+                <td><a th:href="@{/updateTask/{id}(id=${task.ID})}">Done</a></td>
+                <td><a th:href="@{/deleteTask/{id}(id=${task.ID})}">Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p><a href="/addhabit">Add a new habit</a> </p>
+</div>
 </body>
 </html>
