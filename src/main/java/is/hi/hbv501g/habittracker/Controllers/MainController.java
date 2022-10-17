@@ -1,7 +1,11 @@
 package is.hi.hbv501g.habittracker.Controllers;
 
+import is.hi.hbv501g.habittracker.Persistence.Entities.Goal;
 import is.hi.hbv501g.habittracker.Persistence.Entities.Habit;
+import is.hi.hbv501g.habittracker.Persistence.Entities.Task;
+import is.hi.hbv501g.habittracker.Services.GoalService;
 import is.hi.hbv501g.habittracker.Services.HabitService;
+import is.hi.hbv501g.habittracker.Services.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,10 +21,14 @@ public class MainController {
 
 
     private final HabitService habitService;
+    private final GoalService goalService;
+    private final TaskService taskService;
 
     @Autowired
-    public MainController(HabitService habitService){
+    public MainController(HabitService habitService, GoalService goalService, TaskService taskService){
         this.habitService = habitService;
+        this.goalService = goalService;
+        this.taskService = taskService;
     }
 
     /**
@@ -46,6 +54,16 @@ public class MainController {
         return "newHabit";
     }
 
+    @RequestMapping(value="/addgoal", method = RequestMethod.GET)
+    public String addGoalForm(Goal goal){
+        return "newGoal";
+    }
+
+    @RequestMapping(value="/addtask", method = RequestMethod.GET)
+    public String addTaskForm(Task task){
+        return "newTask";
+    }
+
     /**
      * Route for requests to "/addhabit" path.
      * Gathers the results from a filled out "newHabit.html" form and creates a new Habit object with them.
@@ -62,6 +80,24 @@ public class MainController {
         return "redirect:/";
     }
 
+    @RequestMapping(value="/addgoal", method = RequestMethod.POST)
+    public String addGoal(Goal goal, BindingResult result, Model model){
+        if (result.hasErrors()){
+            return "newGoal";
+        }
+        goalService.save(goal);
+        return "redirect:/";
+    }
+
+    @RequestMapping(value="/addgoal", method = RequestMethod.POST)
+    public String addTask(Task task, BindingResult result, Model model){
+        if (result.hasErrors()){
+            return "newTask";
+        }
+        taskService.save(task);
+        return "redirect:/";
+    }
+
     /**
      * Route for requests to "/delete/{id}" path.
      * Deletes a habit.
@@ -72,6 +108,18 @@ public class MainController {
     @RequestMapping(value="/delete/{id}", method = RequestMethod.GET)
     public String deleteHabit(@PathVariable("id") long id, Model model){
         habitService.deleteByID(id);
+        return "redirect:/";
+    }
+
+    @RequestMapping(value="/deleteGoal/{id}", method = RequestMethod.GET)
+    public String deleteGoal(@PathVariable("id") long id, Model model){
+        goalService.deleteByID(id);
+        return "redirect:/";
+    }
+
+    @RequestMapping(value="/deleteTask/{id}", method = RequestMethod.GET)
+    public String deleteTask(@PathVariable("id") long id, Model model){
+        taskService.deleteByID(id);
         return "redirect:/";
     }
 
