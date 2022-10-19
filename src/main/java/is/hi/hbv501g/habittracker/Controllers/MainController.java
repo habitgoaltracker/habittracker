@@ -39,7 +39,9 @@ public class MainController {
     @RequestMapping("/")
     public String mainPage(Model model){
         List<Habit> allHabits = habitService.findAll();
+        List<Goal> allGoals = goalService.findAll();
         model.addAttribute("habits", allHabits);
+        model.addAttribute("goals", allGoals);
         return "main";
     }
 
@@ -89,7 +91,7 @@ public class MainController {
         return "redirect:/";
     }
 
-    @RequestMapping(value="/addgoal", method = RequestMethod.POST)
+    @RequestMapping(value="/addtask", method = RequestMethod.POST)
     public String addTask(Task task, BindingResult result, Model model){
         if (result.hasErrors()){
             return "newTask";
