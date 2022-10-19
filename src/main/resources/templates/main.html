@@ -40,19 +40,19 @@
         <table>
             <thead>
             <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Due date</th>
                 <th>Completed</th>
+                <th>Name</th>
+                <th>Due date</th>
+                <th>Progress</th>
                 <th>Delete</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="goal : ${goals}">
-                <td th:text="${goal.goalName}"></td>
-                <td th:text="${goal.goalCompleted}"></td>
+                <td><input type="checkbox"></td>
+                <td th:text="${goal.name}"></td>
+                <td th:text="${goal.goalDueDate}"></td>
                 <td th:text="${goal.goalProgress}"></td>
-                <td><a th:href="@{/updateGoal/{id}(id=${goal.ID})}">Completed</a></td>
                 <td><a th:href="@{/deleteGoal/{id}(id=${goal.ID})}">Delete</a></td>
             </tr>
             </tbody>

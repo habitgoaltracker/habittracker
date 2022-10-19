@@ -10,9 +10,9 @@
     <input type="text" th:field="*{name}" id="name" placeholder="Name">
     <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
 
-    <label for="category">Category</label>
-    <input type="text" th:field="*{category}" id="category" placeholder="Category">
-    <span th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></span>
+    <label for="goalDueDate">Due date:</label>
+    <input type="date" th:field="*{goalDueDate}" id="goalDueDate" placeholder="Due date">
+    <span th:if="${#fields.hasErrors('goalDueDate')}" th:errors="*{goalDueDate}"></span>
 
     <input type="submit" value="Add Goal">
 </form>
