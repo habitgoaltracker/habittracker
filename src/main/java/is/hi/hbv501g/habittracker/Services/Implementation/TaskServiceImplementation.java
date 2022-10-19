@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TaskServiceImplementation implements TaskService {
 
-    private TaskRepository taskRepository;
+    private final TaskRepository taskRepository;
 
     @Autowired
     public TaskServiceImplementation(TaskRepository taskRepository){

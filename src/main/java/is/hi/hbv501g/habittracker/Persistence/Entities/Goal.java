@@ -1,7 +1,10 @@
 package is.hi.hbv501g.habittracker.Persistence.Entities;
 
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -13,8 +16,11 @@ public class Goal {
 
     private String name;
     private String category;
+
     private boolean goalCompleted;
     private double goalProgress;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate goalDueDate;
     @OneToMany
     private List<Task> tasks;
 
@@ -22,11 +28,12 @@ public class Goal {
 
     }
 
-    public Goal(String name, String category, boolean goalCompleted, double goalProgress, List<Task> tasks) {
+    public Goal(String name, String category, boolean goalCompleted, double goalProgress, LocalDate goalDueDate, List<Task> tasks) {
         this.name = name;
         this.category = category;
         this.goalCompleted = goalCompleted;
         this.goalProgress = goalProgress;
+        this.goalDueDate = goalDueDate;
         this.tasks = tasks;
     }
 
@@ -76,5 +83,13 @@ public class Goal {
 
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
+    }
+
+    public LocalDate getGoalDueDate() {
+        return goalDueDate;
+    }
+
+    public void setGoalDueDate(LocalDate goalDueDate) {
+        this.goalDueDate = goalDueDate;
     }
 }
