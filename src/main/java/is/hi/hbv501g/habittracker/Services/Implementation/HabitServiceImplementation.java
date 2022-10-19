@@ -57,14 +57,8 @@ public class HabitServiceImplementation implements HabitService {
         LocalDate currDate = LocalDate.now();
 
         if(habit.getLastDate() != currDate.minusDays(1)) {
-            if(habit.getLastDate() == null){
-                habit.setLastDate(currDate);
-                habit.setStreak(1);
-            }
-            else if(!habit.getLastDate().equals(currDate)){
-                currStreak = 0;
-                habit.setStreak(0);
-            }
+            habit.setLastDate(currDate);
+            habit.setStreak(1);
         }
 
         else if (habit.getLastDate().equals(currDate.minusDays(1))) {
