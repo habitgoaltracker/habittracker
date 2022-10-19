@@ -41,8 +41,9 @@
             <thead>
             <tr>
                 <th>Name</th>
-                <th>Streak length</th>
-                <th>Highest streak</th>
+                <th>Description</th>
+                <th>Due date</th>
+                <th>Completed</th>
                 <th>Delete</th>
             </tr>
             </thead>
@@ -51,13 +52,13 @@
                 <td th:text="${goal.goalName}"></td>
                 <td th:text="${goal.goalCompleted}"></td>
                 <td th:text="${goal.goalProgress}"></td>
-                <td><a th:href="@{/updateGoal/{id}(id=${goal.ID})}">Done</a></td>
+                <td><a th:href="@{/updateGoal/{id}(id=${goal.ID})}">Completed</a></td>
                 <td><a th:href="@{/deleteGoal/{id}(id=${goal.ID})}">Delete</a></td>
             </tr>
             </tbody>
         </table>
     </div>
-    <p><a href="/addgoal">Add a new habit</a> </p>
+    <p><a href="/addgoal">Add a new goal</a> </p>
 </div>
 <div th:switch="${tasks}">
     <h2 th:case="null">No tasks!</h2>
