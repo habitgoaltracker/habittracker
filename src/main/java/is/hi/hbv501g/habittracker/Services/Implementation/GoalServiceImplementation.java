@@ -6,6 +6,7 @@ import is.hi.hbv501g.habittracker.Services.GoalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -31,5 +32,14 @@ public class GoalServiceImplementation implements GoalService {
     @Override
     public List<Goal> findAll(){
         return this.goalRepository.findAll();
+    }
+
+    @Override
+    public void updateGoalByID(long id){
+        Goal goal = goalRepository.findByID(id);
+        LocalDate currDate = LocalDate.now();
+        if(goal.getGoalDueDate().isBefore(currDate)){
+            goal.setGoalDueDate(null);
+        }
     }
 }

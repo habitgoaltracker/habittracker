@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -87,6 +88,9 @@ public class MainController {
         if (result.hasErrors()){
             return "newGoal";
         }
+        if(goal.getGoalDueDate().isBefore(LocalDate.now())){
+            return "newGoal";
+        }
         goalService.save(goal);
         return "redirect:/";
     }
@@ -128,6 +132,11 @@ public class MainController {
     @RequestMapping(value="/update/{id}", method = RequestMethod.GET)
     public String updateStreakHabit(@PathVariable("id") long id, Model model){
         habitService.updateHabitByID(id);
+        return "redirect:/";
+    }
+
+    public String updateGoal(@PathVariable("id") long id, Model model){
+        goalService.updateGoalByID(id);
         return "redirect:/";
     }
 }
