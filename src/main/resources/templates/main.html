@@ -49,7 +49,7 @@
             </thead>
             <tbody>
             <tr th:each="goal : ${goals}">
-                <td><input type="checkbox"></td>
+                <td><a th:href="@{/deleteGoal/{id}(id=${goal.ID})}">Complete</a></td>
                 <td th:text="${goal.name}"></td>
                 <td th:text="${goal.goalDueDate}"></td>
                 <td th:text="${goal.goalProgress}"></td>
@@ -85,7 +85,7 @@
             </tbody>
         </table>
     </div>
-    <p><a href="/addhabit">Add a new habit</a> </p>
+    <p><a href="/addhabit">Add a new task</a> </p>
 </div>
 </body>
 </html>
