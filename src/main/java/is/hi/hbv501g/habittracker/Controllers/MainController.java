@@ -19,11 +19,19 @@ import java.util.List;
 
 @Controller
 public class MainController {
-
-
     private final HabitService habitService;
     private final GoalService goalService;
     private final TaskService taskService;
+
+    /* Fastar */
+    private static final String REDIRECT = "redirect:/";
+    private static final String NEW_GOAL = "newGoal";
+    private static final String NEW_HABIT = "newHabit";
+    private static final String NEW_TASK = "newTask";
+    private static final String GOALS = "goals";
+    private static final String HABITS = "habits";
+    private static final String MAIN = "main";
+
 
     @Autowired
     public MainController(HabitService habitService, GoalService goalService, TaskService taskService){
@@ -41,9 +49,9 @@ public class MainController {
     public String mainPage(Model model){
         List<Habit> allHabits = habitService.findAll();
         List<Goal> allGoals = goalService.findAll();
-        model.addAttribute("habits", allHabits);
-        model.addAttribute("goals", allGoals);
-        return "main";
+        model.addAttribute(HABITS, allHabits);
+        model.addAttribute(GOALS, allGoals);
+        return MAIN;
     }
 
     /**
@@ -53,18 +61,18 @@ public class MainController {
      * @return String with path to "newHabit" html file.
      */
     @RequestMapping(value="/addhabit", method = RequestMethod.GET)
-    public String addHabitForm(Habit habit){
-        return "newHabit";
+    public String addHabitForm(Habit habit){ // SonarLint: Replace this persistent entity with a simple POJO or DTO object.
+        return NEW_HABIT;
     }
 
     @RequestMapping(value="/addgoal", method = RequestMethod.GET)
     public String addGoalForm(Goal goal){
-        return "newGoal";
+        return NEW_GOAL;
     }
 
     @RequestMapping(value="/addtask", method = RequestMethod.GET)
     public String addTaskForm(Task task){
-        return "newTask";
+        return NEW_TASK;
     }
 
     /**
@@ -77,31 +85,31 @@ public class MainController {
     @RequestMapping(value="/addhabit", method = RequestMethod.POST)
     public String addHabit(Habit habit, BindingResult result, Model model){
         if (result.hasErrors()){
-            return "newHabit";
+            return NEW_HABIT;
         }
         habitService.save(habit);
-        return "redirect:/";
+        return REDIRECT;
     }
 
     @RequestMapping(value="/addgoal", method = RequestMethod.POST)
     public String addGoal(Goal goal, BindingResult result, Model model){
         if (result.hasErrors()){
-            return "newGoal";
+            return NEW_GOAL;
         }
         if(goal.getGoalDueDate().isBefore(LocalDate.now())){
-            return "newGoal";
+            return NEW_GOAL;
         }
         goalService.save(goal);
-        return "redirect:/";
+        return REDIRECT;
     }
 
     @RequestMapping(value="/addtask", method = RequestMethod.POST)
     public String addTask(Task task, BindingResult result, Model model){
         if (result.hasErrors()){
-            return "newTask";
+            return NEW_TASK;
         }
         taskService.save(task);
-        return "redirect:/";
+        return REDIRECT;
     }
 
     /**
@@ -114,29 +122,29 @@ public class MainController {
     @RequestMapping(value="/delete/{id}", method = RequestMethod.GET)
     public String deleteHabit(@PathVariable("id") long id, Model model){
         habitService.deleteByID(id);
-        return "redirect:/";
+        return REDIRECT;
     }
 
     @RequestMapping(value="/deleteGoal/{id}", method = RequestMethod.GET)
     public String deleteGoal(@PathVariable("id") long id, Model model){
         goalService.deleteByID(id);
-        return "redirect:/";
+        return REDIRECT;
     }
 
     @RequestMapping(value="/deleteTask/{id}", method = RequestMethod.GET)
     public String deleteTask(@PathVariable("id") long id, Model model){
         taskService.deleteByID(id);
-        return "redirect:/";
+        return REDIRECT;
     }
 
     @RequestMapping(value="/update/{id}", method = RequestMethod.GET)
     public String updateStreakHabit(@PathVariable("id") long id, Model model){
         habitService.updateHabitByID(id);
-        return "redirect:/";
+        return REDIRECT;
     }
 
     public String updateGoal(@PathVariable("id") long id, Model model){
         goalService.updateGoalByID(id);
-        return "redirect:/";
+        return REDIRECT;
     }
 }
