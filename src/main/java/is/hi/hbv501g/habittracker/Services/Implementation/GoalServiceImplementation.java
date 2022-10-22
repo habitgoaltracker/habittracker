@@ -20,6 +20,16 @@ public class GoalServiceImplementation implements GoalService {
     }
 
     @Override
+    public Goal findByName(String name) {
+        return goalRepository.findByName(name).get(0);
+    }
+
+    @Override
+    public Goal findByID(long ID) {
+        return goalRepository.findByID(ID);
+    }
+
+    @Override
     public Goal save(Goal goal) {
         return this.goalRepository.save(goal);
     }
