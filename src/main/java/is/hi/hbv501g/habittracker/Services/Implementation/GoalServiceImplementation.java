@@ -47,7 +47,6 @@ public class GoalServiceImplementation implements GoalService {
         this.goalRepository.deleteById(id);
     }
 
-
     @Override
     public void updateGoalByID(long id){
         Goal goal = goalRepository.findByID(id);
