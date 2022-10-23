@@ -16,18 +16,17 @@ _Second-iteration code deliverables_
 A link to our team’s [github repository](https://github.com/habitgoaltracker/habittracker)
 
 ---
-
 ## Brief notes on this iteration
+
+- **Project status**: Good
+- **Progress**: Good
+- **Exceptions**: None
 
 During this assignment our team has been working on the following use cases:
 
 - A3_1 Updating the streak of the habit
 - A3_2 Create a goal
 - A3_3 Updating a goal value
-
-Project status: Good
-Progress: Good
-Exceptions: None
 
 ### Use cases assigned to this iteration
 
@@ -61,29 +60,3 @@ _Note on the implementation of the use cases_:
 - **Priority**: 20
 - **Estimated time**: 10 hrs.
 - **Actual time**: 10 hrs.
-
-
----
-By Sun 23 Oct, submit in Canvas:
-
-    A link to your team’s github repository
-    Showing the implementation of your project
-    Brief notes on project status, progress, exceptions
-
-On Thu 27 Oct, the phase’s P.O. presents and explains your deliverables:
-
-    How did the implementation proceed?
-    How far along are you in relation to the project plan? 
-    What are the reasons for delays, and how are you planning to deal with them?
-    Demo the newly implemented features
-
-Grading criteria: Implementation Progress (100%)
-
-    Team activity and progress in relation to the project plan (65%)
-    Team awareness of project status, challenges and work ahead (25%)
-    Code quality: Clean, documented code (10%)
-
-Use the coming week and the next consultation slot to make progress implementing your project according to your project schedule!
-
-Iterative implementation of lower-risk and other elements
-Preparation for deployment
