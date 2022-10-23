@@ -7,6 +7,8 @@ import is.hi.hbv501g.habittracker.Services.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TaskServiceImplementation implements TaskService {
 
@@ -20,6 +22,11 @@ public class TaskServiceImplementation implements TaskService {
     @Override
     public Task save(Task task) {
        return taskRepository.save(task);
+    }
+
+    @Override
+    public List<Task> findAll() {
+        return this.taskRepository.findAll();
     }
 
     @Override

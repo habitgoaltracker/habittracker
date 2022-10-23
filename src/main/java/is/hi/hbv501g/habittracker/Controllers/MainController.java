@@ -31,6 +31,7 @@ public class MainController {
     private static final String NEW_TASK = "newTask";
     private static final String GOALS = "goals";
     private static final String HABITS = "habits";
+    private static final String TASKS = "tasks";
     private static final String MAIN = "main";
 
 
@@ -50,8 +51,10 @@ public class MainController {
     public String mainPage(Model model){
         List<Habit> allHabits = habitService.findAll();
         List<Goal> allGoals = goalService.findAll();
+        List<Task> allTasks = taskService.findAll();
         model.addAttribute(HABITS, allHabits);
         model.addAttribute(GOALS, allGoals);
+        model.addAttribute("tasks", allTasks);
         return MAIN;
     }
 
@@ -71,7 +74,7 @@ public class MainController {
         return NEW_GOAL;
     }
 
-    @RequestMapping(value="/addtask/{id}", method = RequestMethod.GET)
+    @RequestMapping(value="/addtask", method = RequestMethod.GET)
     public String addTaskForm(Task task){
         return NEW_TASK;
     }
@@ -104,16 +107,11 @@ public class MainController {
         return REDIRECT;
     }
 
-    @RequestMapping(value="/addtask/{id}", method = RequestMethod.POST)
-    public String addTask(@PathVariable("id") long id, Task task, BindingResult result, Model model){
+    @RequestMapping(value="/addtask", method = RequestMethod.POST)
+    public String addTask(Task task, BindingResult result, Model model){
         if (result.hasErrors()) {
             return NEW_TASK;
         }
-        Goal goal = goalService.findByID(id);
-        List<Task> taskList = goal.getTasks();
-        taskList.add(task);
-        goal.setTasks(taskList);
-        goalService.save(goal);
         taskService.save(task);
         return REDIRECT;
     }
