@@ -58,7 +58,7 @@
                 <td th:text="${goal.goalDueDate}"></td>
                 <td th:text="${goal.goalProgress}"></td>
                 <td><a th:href="@{/deleteGoal/{id}(id=${goal.ID})}">Delete</a></td>
-                <td> <a th:href="@{/addtask/{id}(id=${goal.ID})}">Add a new task</a> </td>
+                <td> <a href="/addtask">Add a new task</a> </td>
             </tr>
             </tbody>
         </table>
@@ -81,7 +81,7 @@
             </thead>
             <tbody>
             <tr th:each="task: ${tasks}">
-                <td th:text="${task.taskName}"></td>
+                <td th:text="${task.name}"></td>
                 <td th:text="${task.taskCompleted}"></td>
                 <td th:text="${task.taskDueDate}"></td>
                 <td th:text="${task.taskDescription}"></td>
@@ -91,7 +91,6 @@
             </tbody>
         </table>
     </div>
-    <p><a href="/addtask">Add a new task</a> </p>
 </div>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://thymelaef.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Add a new task</title>
@@ -17,6 +17,8 @@
     <label for="taskDueDate">Due date:</label>
     <input type="date" th:field="*{taskDueDate}" id="taskDueDate" placeholder="Due date">
     <span th:if="${#fields.hasErrors('taskDueDate')}" th:errors="*{taskDueDate}"></span>
+
+
 
     <input type="submit" value="Add Task">
 </form>
