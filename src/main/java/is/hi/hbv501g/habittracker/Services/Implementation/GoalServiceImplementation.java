@@ -33,6 +33,11 @@ public class GoalServiceImplementation implements GoalService {
     }
 
     @Override
+    public Goal findByID(long ID) {
+        return this.goalRepository.findByID(ID);
+    }
+
+    @Override
     public List<Goal> findAll(){
         return this.goalRepository.findAll();
     }

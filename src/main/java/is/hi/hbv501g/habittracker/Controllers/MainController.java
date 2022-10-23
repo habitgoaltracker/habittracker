@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -140,6 +141,16 @@ public class MainController {
     @RequestMapping(value="/update/{id}", method = RequestMethod.GET)
     public String updateStreakHabit(@PathVariable("id") long id, Model model){
         habitService.updateHabitByID(id);
+        return REDIRECT;
+    }
+
+    @RequestMapping(value="/checkbox-altered/{id}", method = RequestMethod.GET)
+    public String checkboxAltered(@RequestParam("isChecked") boolean checkbox, @PathVariable("id") long id){
+        Goal goal = goalService.findByID(id);
+        System.out.println(goal.isGoalCompleted());
+        goal.setGoalCompleted(checkbox);
+        goalService.save(goal);
+        if(checkbox)System.out.println("checkbox checked");
         return REDIRECT;
     }
 
