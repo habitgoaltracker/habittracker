@@ -38,9 +38,12 @@ public interface HabitService {
 
     /**
      * Deletes the requested habit.
-     * @param ID ID of the habit to be deleted.
+     * @param id ID of the habit to be deleted.
      */
-    void deleteByID(long ID);
+    void deleteByID(long id);
 
+    /** Updates the requested habit.
+     * @param id ID of the habit to be updated.
+     */
     void updateHabitByID(long id);
 }
