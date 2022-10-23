@@ -11,11 +11,11 @@
 
 ## Team Nein 9️⃣: habittracker
 
-|| Nafn                              | Netfang      || 
-|| --------------------------------- | ------------ || 
-|| 🧸 Árni Björn Óskarsson           | abo25@hi.is  || 
-|| 😹 Ísak Már Jónsson               | imj8@hi.is   || 
-|| ✌️ Viktoría Emma Berglindardóttir | veb3@hi.is   ||
+| Nafn                              | Netfang      | 
+| --------------------------------- | ------------ | 
+| 🧸 Árni Björn Óskarsson           | abo25@hi.is  | 
+| 😹 Ísak Már Jónsson               | imj8@hi.is   | 
+| ✌️ Viktoría Emma Berglindardóttir | veb3@hi.is   |
 
 ---
 ## Nafnahugmyndir

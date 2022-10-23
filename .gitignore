@@ -417,3 +417,6 @@ habittracker/src/main/resources/application.properties
 *_BASE_*.txt
 *_LOCAL_*.txt
 *_REMOTE_*.txt
+
+# VSCode
+.vscode

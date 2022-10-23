@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * Documentation of following methods can be found in the corresponding Service interface.
+ */
 @Service
 public class GoalServiceImplementation implements GoalService {
 
@@ -20,13 +23,13 @@ public class GoalServiceImplementation implements GoalService {
     }
 
     @Override
-    public Goal save(Goal goal) {
-        return this.goalRepository.save(goal);
+    public Goal findByName(String name) {
+        return goalRepository.findByName(name).get(0);
     }
 
     @Override
-    public void deleteByID(long ID) {
-        this.goalRepository.deleteById(ID);
+    public Goal findByID(long id) {
+        return goalRepository.findByID(id);
     }
 
     @Override
@@ -38,6 +41,17 @@ public class GoalServiceImplementation implements GoalService {
     public List<Goal> findAll(){
         return this.goalRepository.findAll();
     }
+
+    @Override
+    public Goal save(Goal goal) {
+        return this.goalRepository.save(goal);
+    }
+
+    @Override
+    public void deleteByID(long id) {
+        this.goalRepository.deleteById(id);
+    }
+
 
     @Override
     public void updateGoalByID(long id){
