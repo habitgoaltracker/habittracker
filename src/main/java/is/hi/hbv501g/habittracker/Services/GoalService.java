@@ -10,6 +10,7 @@ public interface GoalService {
 
     Goal save(Goal goal);
     void deleteByID(long ID);
+    Goal findByID(long ID);
     List<Goal> findAll();
     void updateGoalByID(long ID);
 }
