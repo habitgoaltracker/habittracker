@@ -31,8 +31,8 @@ public class HabitServiceImplementation implements HabitService {
     }
 
     @Override
-    public Habit findByID(long ID) {
-        return habitRepository.findByID(ID);
+    public Habit findByID(long id) {
+        return habitRepository.findByID(id);
     }
 
     @Override
@@ -52,17 +52,18 @@ public class HabitServiceImplementation implements HabitService {
     public void updateHabitByID(long id) {
         Habit habit = findByID(id);
         int streak = habit.getStreak();
-        int currStreak = streak + 1;
+        int currStreak = streak;
         int highStreak = habit.getHighestStreak();
         LocalDate currDate = LocalDate.now();
 
-        if(habit.getLastDate() != currDate.minusDays(1)) {
+        if (habit.getLastDate()==null){
             habit.setLastDate(currDate);
             habit.setStreak(1);
+            currStreak = 1;
         }
 
         else if (habit.getLastDate().equals(currDate.minusDays(1))) {
-            habit.setStreak(currStreak);
+            habit.setStreak(++currStreak);
             habit.setLastDate(currDate);
         }
 
