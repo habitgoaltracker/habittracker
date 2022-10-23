@@ -74,8 +74,8 @@ public class MainController {
         return NEW_GOAL;
     }
 
-    @RequestMapping(value="/addtask", method = RequestMethod.GET)
-    public String addTaskForm(Task task){
+    @RequestMapping(value="/addtask/{id}", method = RequestMethod.GET)
+    public String addTaskForm(@PathVariable("id") long id, Task task){
         return NEW_TASK;
     }
 
@@ -87,7 +87,7 @@ public class MainController {
      * @return String with path to route /.
      */
     @RequestMapping(value="/addhabit", method = RequestMethod.POST)
-    public String addHabit(Habit habit, BindingResult result, Model model){
+    public String addHabit(Habit habit,  BindingResult result, Model model){
         if (result.hasErrors()){
             return NEW_HABIT;
         }
@@ -107,12 +107,17 @@ public class MainController {
         return REDIRECT;
     }
 
-    @RequestMapping(value="/addtask", method = RequestMethod.POST)
-    public String addTask(Task task, BindingResult result, Model model){
+    @RequestMapping(value="/addtask/{id}", method = RequestMethod.POST)
+    public String addTask(@PathVariable("id") long id, Task task, BindingResult result, Model model){
         if (result.hasErrors()) {
             return NEW_TASK;
         }
+        Goal goal = goalService.findByID(id);
+        List<Task> taskList = goal.getTasks();
+        taskList.add(task);
+        goal.setTasks(taskList);
         taskService.save(task);
+        goalService.save(goal);
         return REDIRECT;
     }
 

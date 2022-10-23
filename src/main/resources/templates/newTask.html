@@ -5,7 +5,8 @@
     <title>Add a new task</title>
 </head>
 <body>
-<form action="#" th:action="@{/addtask}" th:object="${task}" method="post">
+
+<form action="#" th:action="@{${#httpServletRequest.requestURI}}" th:object="${task}" method="post">
     <label for="name">Name</label>
     <input type="text" th:field="*{name}" id="name" placeholder="Name">
     <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
