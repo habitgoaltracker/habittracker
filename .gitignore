@@ -401,7 +401,7 @@ $RECYCLE.BIN/
 
 /target/
 !.mvn/wrapper/maven-wrapper.jar
-habittracker/src/main/resources/application.properties
+habittracker1/src/main/resources/application.properties
 
 ### Git ###
 # Created by git for backups. To disable backups in Git:
