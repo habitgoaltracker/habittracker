@@ -24,7 +24,6 @@ During this assignment our team has been working on the following use cases:
 - A3_1 Updating the streak of the habit
 - A3_2 Create a goal
 - A3_3 Updating a goal value
-* - Vesen, fylgdi glorious victory. Naked dancing og hooliganism.
 
 Project status: Good
 Progress: Good
@@ -32,32 +31,42 @@ Exceptions: None
 
 ### Use cases assigned to this iteration
 
-_Note on the implementation of the use cases:  Even though Login features will be implemented later in the course.
+_Note on the implementation of the use cases_: 
+- Even though the use cases feature a user and a login feature, the login feature will not be implemented until later in the course.
+- We did not keep careful track of our time so the 'actual time' column is not entirely accurate, more of an...estimate.
 
 #### A3_1 Updating the streak of the habit
 
 > A user opens the application and logs in. The system displays the users’ current habits the user has on their page and the streaks of each individual habit (e.g. how often the user has managed to keep up their habit according to their set values). User checks off one habit they have done for the day. The system updates the streak length of the habit and displays it to the user, along with an indication that they have kept up that habit for the day.
 
-Use case A3_1 has been fully implemented. 
-Estimated time was 4 hours, actual time was not carefully tracked, however we feel that the estimated time was about accurate.
+- **Progress**: Fully implemented.
+- **Priority**: 10
+- **Estimated time**: 4 hrs.
+- **Actual time**: 4 hrs.
 
 ####  A3_2 Create a goal
 
 > A user opens the application and logs in. System opens the menu and the user decides to add a new goal. System presents the user with an option of creating a new goal. The system requests the name of the goal and deadline(month, months, year). User fills out the necessary information. System creates and stores the new goal.
 
-Use case A3_2 has been fully implemented. However, login features will not be implemented until later in the course. 
-Est: 8
-Act: 5
-
+- **Progress**: Fully implemented.
+- **Priority**: 20
+- **Estimated time**: 8 hrs.
+- **Actual time**: 5 hrs.
 
 ####  A3_3 Updating a goal value
 
 > A user opens the application and logs in. System opens up the menu. User selects one of the walking habits he has in his tracker and adds 5km to the end goal. System updates and stores the progress of the goal in memory according to the habit.
 
-Est: 10
-Act: 10
+- **Progress**: Fully implemented.
+- **Priority**: 20
+- **Estimated time**: 10 hrs.
+- **Actual time**: 10 hrs.
 
 
+---
+By Sun 23 Oct, submit in Canvas:
+
+    A link to your team’s github repository
     Showing the implementation of your project
     Brief notes on project status, progress, exceptions
 
