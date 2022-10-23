@@ -1,5 +1,7 @@
 package is.hi.hbv501g.habittracker.Persistence.Entities;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -11,6 +13,7 @@ public class Task {
     private long ID;
 
     private String name;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate taskDueDate;
     private String taskDescription;
     private boolean taskCompleted;
