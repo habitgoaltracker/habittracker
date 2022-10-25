@@ -44,7 +44,6 @@
                 <th>Name</th>
                 <th>Due date</th>
                 <th>Progress</th>
-                <th>Tasks</th>
                 <th>Delete</th>
                 <th>Add a task</th>
             </tr>
@@ -58,11 +57,18 @@
                 <td th:text="${goal.name}"></td>
                 <td th:text="${goal.goalDueDate}"></td>
                 <td th:text="${goal.goalProgress}"></td>
-                <td th:each="task : ${goal.tasks}">
-                    <li th:text="${task.getName}"></li>
-                </td>
                 <td><a th:href="@{/deleteGoal/{id}(id=${goal.ID})}">Delete</a></td>
                 <td> <a th:href="@{/addtask/{id}(id=${goal.ID})}">Add a new task</a> </td>
+                <table>
+                    <tbody>
+                    <tr th:each="task : ${goal.tasks}">
+                        <td>
+                            <ol th:text="${task.getName}"></ol>
+                        </td>
+                        <td><a th:href="@{/deleteTask/{id}(id=${task.ID})}">Delete</a></td>
+                    </tr>
+                    </tbody>
+                </table>
             </tr>
             </tbody>
         </table>
