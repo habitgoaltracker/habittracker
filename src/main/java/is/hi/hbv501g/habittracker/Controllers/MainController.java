@@ -147,6 +147,12 @@ public class MainController {
         return REDIRECT;
     }
 
+    @RequestMapping(value="/updateTask/{id}", method = RequestMethod.GET)
+    public String updateTask(@PathVariable("id") long id, Model model){
+        taskService.updateTaskByID(id);
+        return REDIRECT;
+    }
+
     @RequestMapping(value="/update/{id}", method = RequestMethod.GET)
     public String updateStreakHabit(@PathVariable("id") long id, Model model){
         habitService.updateHabitByID(id);

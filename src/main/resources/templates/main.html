@@ -65,6 +65,7 @@
                         <td>
                             <ol th:text="${task.getName}"></ol>
                         </td>
+                        <td><a th:href="@{/updateTask/{id}(id=${task.ID})}">Done</a></td>
                         <td><a th:href="@{/deleteTask/{id}(id=${task.ID})}">Delete</a></td>
                     </tr>
                     </tbody>

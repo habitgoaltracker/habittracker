@@ -46,4 +46,10 @@ public class TaskServiceImplementation implements TaskService {
         goalRepository.save(goal);
         taskRepository.deleteById(ID);
     }
+
+    @Override
+    public void updateTaskByID(long ID) {
+        // TODO
+        this.deleteByID(ID); //temporary
+    }
 }
