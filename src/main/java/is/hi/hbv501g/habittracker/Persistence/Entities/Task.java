@@ -17,16 +17,19 @@ public class Task {
     private LocalDate taskDueDate;
     private String taskDescription;
     private boolean taskCompleted;
+    @ManyToOne
+    private Goal taskGoal;
 
     public Task(){
 
     }
 
-    public Task(String name, LocalDate taskDueDate, String taskDescription, boolean taskCompleted) {
+    public Task(String name, LocalDate taskDueDate, String taskDescription, boolean taskCompleted, Goal taskGoal) {
         this.name = name;
         this.taskDueDate = taskDueDate;
         this.taskDescription = taskDescription;
         this.taskCompleted = taskCompleted;
+        this.taskGoal = taskGoal;
     }
 
     public long getID() {
@@ -67,5 +70,13 @@ public class Task {
 
     public void setTaskCompleted(boolean taskCompleted) {
         this.taskCompleted = taskCompleted;
+    }
+
+    public Goal getTaskGoal() {
+        return taskGoal;
+    }
+
+    public void setTaskGoal(Goal taskGoal) {
+        this.taskGoal = taskGoal;
     }
 }
