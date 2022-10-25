@@ -1,6 +1,8 @@
 package is.hi.hbv501g.habittracker.Persistence.Entities;
 
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -21,7 +23,7 @@ public class Goal {
     private double goalProgress;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate goalDueDate;
-    @OneToMany
+    @OneToMany(orphanRemoval = true)
     private List<Task> tasks;
 
     public Goal() {
