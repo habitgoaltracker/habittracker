@@ -116,9 +116,12 @@ public class MainController {
         List<Task> taskList = goal.getTasks();
         taskList.add(task);
         goal.setTasks(taskList);
+        task.setTaskCompleted(false);
         task.setTaskGoal(goal);
         taskService.save(task);
         goalService.save(goal);
+        long ID = task.getID();
+        taskService.newTaskUpdateByID(ID);
         return REDIRECT;
     }
 

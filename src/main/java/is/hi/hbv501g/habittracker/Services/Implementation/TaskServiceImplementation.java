@@ -24,7 +24,7 @@ public class TaskServiceImplementation implements TaskService {
 
     @Override
     public Task findByID(long ID) {
-        return null;
+        return taskRepository.findByID(ID);
     }
 
     @Override
@@ -43,13 +43,44 @@ public class TaskServiceImplementation implements TaskService {
         Goal goal = task.getTaskGoal();
         List<Task> taskList = goal.getTasks();
         taskList.remove(task);
+        newTaskUpdateByID(ID);
         goalRepository.save(goal);
         taskRepository.deleteById(ID);
     }
 
     @Override
     public void updateTaskByID(long ID) {
-        // TODO
-        this.deleteByID(ID); //temporary
+        Task task = findByID(ID);
+        Goal goal = task.getTaskGoal();
+        List<Task> tasks = goal.getTasks();
+        task.setTaskCompleted(true);
+        int completed = 0;
+        for (Task value : tasks) {
+            if (value.isTaskCompleted()) {
+                completed = completed + 1;
+            }
+        }
+        double progress = ((double)completed)/((double)tasks.size());
+        double progressRounded = Math.round(progress*100.0)/100.0;
+        goal.setGoalProgress(progressRounded);
+        goalRepository.save(goal);
+        taskRepository.save(task);
+    }
+
+    @Override
+    public void newTaskUpdateByID(long ID) {
+        Task task = findByID(ID);
+        Goal goal = task.getTaskGoal();
+        List<Task> tasks = goal.getTasks();
+        int completed = 0;
+        for (Task value : tasks) {
+            if (value.isTaskCompleted()) {
+                completed = completed + 1;
+            }
+        }
+        double progress = ((double)completed)/((double)tasks.size());
+        double progressRounded = Math.round(progress*100.0)/100.0;
+        goal.setGoalProgress(progressRounded);
+        goalRepository.save(goal);
     }
 }

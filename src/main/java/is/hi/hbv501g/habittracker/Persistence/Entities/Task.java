@@ -19,7 +19,6 @@ public class Task {
     private boolean taskCompleted;
     @ManyToOne
     private Goal taskGoal;
-
     public Task(){
 
     }
