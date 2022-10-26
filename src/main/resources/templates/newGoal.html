@@ -13,7 +13,6 @@
     <label for="goalDueDate">Due date:</label>
     <input type="date" th:field="*{goalDueDate}" id="goalDueDate" placeholder="Due date">
     <span th:if="${#fields.hasErrors('goalDueDate')}" th:errors="*{goalDueDate}"></span>
-
     <input type="submit" value="Add Goal">
 </form>
 

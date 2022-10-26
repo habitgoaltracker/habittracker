@@ -12,5 +12,7 @@ public interface TaskService {
     Task save(Task task);
     List<Task> findAll();
     void deleteByID(long ID);
-    void updateTaskByID(long id);
+    void updateTaskByID(long ID);
+
+    void newTaskUpdateByID(long ID);
 }
