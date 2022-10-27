@@ -50,6 +50,9 @@ public class HabitServiceImplementation implements HabitService {
 
     @Override
     public void updateHabitByID(long id) {
+        // TODO BUG Streak resettar sig ekki niður í einn þegar streak brotnar
+        // TODO BUG Last date uppfærist heldur ekki í currDate þegar streak er brotið
+        // HUGMYND að bíða með að láta hafa dag á milli streaks...kannski 10sek eða eitthvað svo maður verði var við bugs fyrr.
         Habit habit = findByID(id);
         int streak = habit.getStreak();
         int currStreak = streak;
