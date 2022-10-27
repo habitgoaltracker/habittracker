@@ -25,8 +25,8 @@
                     <td th:text="${habit.streak}"></td>
                     <td th:text="${habit.highestStreak}"></td>
                     <td th:text="${habit.lastDate}"></td>
-                    <td><a th:href="@{/update/{id}(id=${habit.ID})}">Done</a></td>
-                    <td><a th:href="@{/delete/{id}(id=${habit.ID})}">Delete</a></td>
+                    <td><a th:href="@{/updateHabit/{id}(id=${habit.ID})}">Done</a></td>
+                    <td><a th:href="@{/deleteHabit/{id}(id=${habit.ID})}">Delete</a></td>
                 </tr>
             </tbody>
         </table>
@@ -80,15 +80,14 @@
 <div th:switch="${tasks}">
     <h2 th:case="null">No tasks!</h2>
     <div th:case="*">
-        <h2>Tasks</h2>
+        <h2>All Tasks</h2>
         <table>
             <thead>
             <tr>
                 <th>Name</th>
+                <th>Completed</th>
                 <th>Due date</th>
                 <th>Description</th>
-                <th>Completed</th>
-                <th>Delete</th>
             </tr>
             </thead>
             <tbody>
@@ -97,13 +96,10 @@
                 <td th:text="${task.taskCompleted}"></td>
                 <td th:text="${task.taskDueDate}"></td>
                 <td th:text="${task.taskDescription}"></td>
-                <td th:text="${task.taskCompleted}"></td>
-                <td><a th:href="@{/deleteTask/{id}(id=${task.ID})}">Delete</a></td>
             </tr>
             </tbody>
         </table>
     </div>
-    <p><a href="/addtask">Add a new task</a> </p>
 </div>
 </body>
 </html>
