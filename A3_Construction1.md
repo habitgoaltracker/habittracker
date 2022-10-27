@@ -7,11 +7,11 @@ _Second-iteration code deliverables_
 
 ## Team 9: Habit Tracker
 
-| Nafn                           | Netfang      | 
-|--------------------------------| ------------ | 
-| Árni Björn Óskarsson           | abo25@hi.is  | <- Product Owner
-| Ísak Már Jónsson               | imj8@hi.is   | 
-| Viktoría Emma Berglindardóttir | veb3@hi.is   |
+| Nafn                           | Netfang      | Product Owner         |
+|--------------------------------| ------------ |-----------------------|
+| Árni Björn Óskarsson           | abo25@hi.is  | **<-- Product Owner** |
+| Ísak Már Jónsson               | imj8@hi.is   |                       |
+| Viktoría Emma Berglindardóttir | veb3@hi.is   |                       |
 
 A link to our team’s [github repository](https://github.com/habitgoaltracker/habittracker)
 
