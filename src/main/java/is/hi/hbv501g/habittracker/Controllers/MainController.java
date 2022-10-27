@@ -54,7 +54,7 @@ public class MainController {
         List<Task> allTasks = taskService.findAll();
         model.addAttribute(HABITS, allHabits);
         model.addAttribute(GOALS, allGoals);
-        model.addAttribute("tasks", allTasks);
+        model.addAttribute(TASKS, allTasks);
         return MAIN;
     }
 
@@ -95,6 +95,13 @@ public class MainController {
         return REDIRECT;
     }
 
+    /**
+     * Route for requests to "/addgoal" path.
+     * Gathers the results from a filled out "newGoal.html" form and creates a new Goal object with them.
+     * Goal object is then saved and stored in database.
+     *
+     * @return String with path to route /.
+     */
     @RequestMapping(value="/addgoal", method = RequestMethod.POST)
     public String addGoal(Goal goal, BindingResult result, Model model){
         if (result.hasErrors()){
@@ -107,6 +114,14 @@ public class MainController {
         return REDIRECT;
     }
 
+    /**
+     * Route for requests to "/addtask/{id}" path.
+     * Gathers the results from a filled out "newTask.html" form and creates a new Task object with them.
+     * Task object is then referenced by the goal it was added to.
+     *
+     * @param id id of the goal to add a task to
+     * @return String with path to route /.
+     */
     @RequestMapping(value="/addtask/{id}", method = RequestMethod.POST)
     public String addTask(@PathVariable("id") long id, Task task, BindingResult result, Model model){
         if (result.hasErrors()) {
@@ -138,40 +153,74 @@ public class MainController {
         return REDIRECT;
     }
 
+    /**
+     * Route for requests to "/deleteGoal/{id}" path.
+     * Deletes a goal.
+     *
+     * @param id id of the goal to delete.
+     * @return String with path to route /.
+     */
     @RequestMapping(value="/deleteGoal/{id}", method = RequestMethod.GET)
     public String deleteGoal(@PathVariable("id") long id, Model model){
         goalService.deleteByID(id);
         return REDIRECT;
     }
 
+    /**
+     * Route for requests to "/deleteTask/{id}" path.
+     * Deletes a task.
+     *
+     * @param id id of the task to delete.
+     * @return String with path to route /.
+     */
     @RequestMapping(value="/deleteTask/{id}", method = RequestMethod.GET)
     public String deleteTask(@PathVariable("id") long id, Model model){
         taskService.deleteByID(id);
         return REDIRECT;
     }
 
+    /**
+     * Route for requests to "/updateTask/{id}" path.
+     * Updates data of task after it's checked as completed.
+     *
+     * @param id id of the task to update.
+     * @return String with path to route /.
+     */
     @RequestMapping(value="/updateTask/{id}", method = RequestMethod.GET)
     public String updateTask(@PathVariable("id") long id, Model model){
         taskService.updateTaskByID(id);
         return REDIRECT;
     }
 
+    /**
+     * Route for requests to "/update/{id}" path.
+     * Updates data of habit after it has been checked as completed for the day.
+     *
+     * @param id id of the habit to update.
+     * @return String with path to route /.
+     */
     @RequestMapping(value="/update/{id}", method = RequestMethod.GET)
     public String updateStreakHabit(@PathVariable("id") long id, Model model){
         habitService.updateHabitByID(id);
         return REDIRECT;
     }
 
+    //TO BE DELETED/UPDATED
     @RequestMapping(value="/checkbox-altered/{id}", method = RequestMethod.GET)
     public String checkboxAltered(@RequestParam("isChecked") boolean checkbox, @PathVariable("id") long id){
         Goal goal = goalService.findByID(id);
-        System.out.println(goal.isGoalCompleted());
         goal.setGoalCompleted(checkbox);
         goalService.save(goal);
-        if(checkbox)System.out.println("checkbox checked");
         return REDIRECT;
     }
 
+    /**
+     * Route for requests to "/updateGoal/{id}" path.
+     * Updates data of a goal after it has been checked as completed.
+     *
+     * @param id id of the habit to update.
+     * @return String with path to route /.
+     */
     public String updateGoal(@PathVariable("id") long id, Model model){
         goalService.updateGoalByID(id);
         return REDIRECT;
