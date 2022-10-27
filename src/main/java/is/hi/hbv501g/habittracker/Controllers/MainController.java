@@ -147,7 +147,7 @@ public class MainController {
      * @param id id of the habit to delete.
      * @return String with path to route /.
      */
-    @RequestMapping(value="/delete/{id}", method = RequestMethod.GET)
+    @RequestMapping(value="/deleteHabit/{id}", method = RequestMethod.GET)
     public String deleteHabit(@PathVariable("id") long id, Model model){
         habitService.deleteByID(id);
         return REDIRECT;
@@ -199,7 +199,7 @@ public class MainController {
      * @param id id of the habit to update.
      * @return String with path to route /.
      */
-    @RequestMapping(value="/update/{id}", method = RequestMethod.GET)
+    @RequestMapping(value="/updateHabit/{id}", method = RequestMethod.GET)
     public String updateStreakHabit(@PathVariable("id") long id, Model model){
         habitService.updateHabitByID(id);
         return REDIRECT;
