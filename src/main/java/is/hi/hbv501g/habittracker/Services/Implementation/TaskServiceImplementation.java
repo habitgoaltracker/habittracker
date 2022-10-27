@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Documentation of following methods can be found in the corresponding Service interface.
+ */
 @Service
 public class TaskServiceImplementation implements TaskService {
 
