@@ -33,6 +33,7 @@ public class MainController {
     private static final String HABITS = "habits";
     private static final String TASKS = "tasks";
     private static final String MAIN = "main";
+    private static final String ERROR = "error"; // TODO: Búa til error template
 
 
     @Autowired
@@ -65,7 +66,7 @@ public class MainController {
      * @return String with path to "newHabit" html file.
      */
     @RequestMapping(value="/addhabit", method = RequestMethod.GET)
-    public String addHabitForm(Habit habit){ // SonarLint: Replace this persistent entity with a simple POJO or DTO object.
+    public String addHabitForm(Habit habit){
         return NEW_HABIT;
     }
 
@@ -205,7 +206,7 @@ public class MainController {
         return REDIRECT;
     }
 
-    //TO BE DELETED/UPDATED
+    //TO BE DELETED/UPDATED // TODO Delete/update
     @RequestMapping(value="/checkbox-altered/{id}", method = RequestMethod.GET)
     public String checkboxAltered(@RequestParam("isChecked") boolean checkbox, @PathVariable("id") long id){
         Goal goal = goalService.findByID(id);
@@ -225,4 +226,21 @@ public class MainController {
         goalService.updateGoalByID(id);
         return REDIRECT;
     }
+
+    /**
+     * Route for requests to "/error" path.
+     * Displays an error page.
+     */
+/*
+    @RequestMapping(value="/error", method = RequestMethod.GET){
+        public String error(){
+            // Business logic
+            // Call a method in a Service Class
+            // Add some data to the model
+            return ERROR;
+        }
+    }
+
+ */
+
 }

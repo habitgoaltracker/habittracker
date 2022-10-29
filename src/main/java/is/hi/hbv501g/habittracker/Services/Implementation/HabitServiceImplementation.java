@@ -19,10 +19,36 @@ import java.util.Locale;
 public class HabitServiceImplementation implements HabitService {
 
     private final HabitRepository habitRepository;
+    // bara ef JPA ekki til staðar, til að gera hlutina manually
+    // ? private List<Book> bookRepository = new ArrayList<>();
+    // ? private int id_counter = 0;
 
     @Autowired
     public HabitServiceImplementation(HabitRepository habitRepository){
         this.habitRepository = habitRepository;
+        // Create 3 random habits for testing purposes, to make debugging easier.
+        // To be removed in final version.
+        //Habit demo1 = habitRepository.save(new Habit("_Lesa bók", "vitkun", 0, 14, LocalDate.now().minusDays(3))); // streak uppfært = fyrra fyrradag
+        //habitRepository.save(new Habit("_Æfa", "hreyfing", 0, 14, LocalDate.now().minusDays(2))); // streak uppfært = fyrradag
+        //habitRepository.save(new Habit("_Læra japönsku", "tungumál", 9, 14, LocalDate.now().minusDays(1))); // streak uppfært = gær
+        //habitRepository.save(new Habit("_Drekka vatn", "heilsa", 7, 14, LocalDate.now().minusDays(0))); // streak uppfært = í dag
+        //habitRepository.save(new Habit("_Forrita", "gáfnalykill", 9, 14, LocalDate.now().minusDays(0))); // streak uppfært = í dag
+        //habitRepository.save(new Habit("_Leika við köttinn minn", "tilfinningahlýjun", 1, 14, LocalDate.now().minusDays(0))); // streak uppfært = í dag en með resettað streak
+        //habitRepository.save(new Habit("_Elda", "mataræði", 0, 0, null)).setID(100009); // streak = nýtt
+
+        //demo1.setID(10007);
+        // JPA gives each book an ID, but here we add them Manually
+        // JPA gives each book an ID, but here we update them manually so we can use them over and over for testing purposes.
+        /*
+        // Habit býður ekki uppá foreach þannig ætla að skrappa þessu í bili og henda bara út hverju habit fyrir sig.
+        for(Habit habit : habitRepository){
+        }
+
+        int demo_id = 1000000;
+        for (int i = 0; i < 7; i++) {
+
+        }
+  */
     }
 
     @Override
@@ -50,7 +76,7 @@ public class HabitServiceImplementation implements HabitService {
 
     @Override
     public void updateHabitByID(long id) {
-        // TODO BUG Streak resettar sig ekki niður í einn þegar streak brotnar
+        // TODO BUG Habit streak resettar sig ekki niður í einn þegar streak brotnar
         // TODO BUG Last date uppfærist heldur ekki í currDate þegar streak er brotið
         // HUGMYND að bíða með að láta hafa dag á milli streaks...kannski 10sek eða eitthvað svo maður verði var við bugs fyrr.
         Habit habit = findByID(id);
