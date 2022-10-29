@@ -9,3 +9,6 @@ Muna að breyta notendanafninu og lykilorðinu fyrir local postgfres database-in
 > `spring.datasource.username=...`
 > 
 > `spring.datasource.password=...`
+
+
+Nýtt glósu branch :)
