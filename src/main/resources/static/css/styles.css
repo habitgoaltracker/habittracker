@@ -1,34 +1,6 @@
-/*
-* {
-    margin: 0;
-    padding: 0;
-    background: darkcyan;
-}
 
-html {
-    box-sizing: border-box;
-    scroll-behavior: smooth;
-}
 
-*,
-*::after,
-*::before {
-    box-sizing: inherit;
-}
-
+/* Bæta þessum link inní html-ið til þess að tengja.
+Cache vesen þannig hef þetta ótengt í bili.
+<link href="../static/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet" />
  */
-
-table {
-    background: darkcyan;
-}
-
-h1 {
-    font-size: 2.5rem;
-    font-weight: 400;
-    line-height: 1.2;
-    margin-bottom: 0.5rem;
-}
-
-.prufa {
-    text-transform: capitalize;
-}

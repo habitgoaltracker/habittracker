@@ -28,13 +28,14 @@ public class HabitServiceImplementation implements HabitService {
         this.habitRepository = habitRepository;
         // Create 3 random habits for testing purposes, to make debugging easier.
         // To be removed in final version.
-        //Habit demo1 = habitRepository.save(new Habit("_Lesa bók", "vitkun", 0, 14, LocalDate.now().minusDays(3))); // streak uppfært = fyrra fyrradag
-        //habitRepository.save(new Habit("_Æfa", "hreyfing", 0, 14, LocalDate.now().minusDays(2))); // streak uppfært = fyrradag
-        //habitRepository.save(new Habit("_Læra japönsku", "tungumál", 9, 14, LocalDate.now().minusDays(1))); // streak uppfært = gær
-        //habitRepository.save(new Habit("_Drekka vatn", "heilsa", 7, 14, LocalDate.now().minusDays(0))); // streak uppfært = í dag
-        //habitRepository.save(new Habit("_Forrita", "gáfnalykill", 9, 14, LocalDate.now().minusDays(0))); // streak uppfært = í dag
-        //habitRepository.save(new Habit("_Leika við köttinn minn", "tilfinningahlýjun", 1, 14, LocalDate.now().minusDays(0))); // streak uppfært = í dag en með resettað streak
-        //habitRepository.save(new Habit("_Elda", "mataræði", 0, 0, null)).setID(100009); // streak = nýtt
+        Habit demo1 = habitRepository.save(new Habit("___Lesa bók___", "___vitkun___", 0, 14, LocalDate.now().minusDays(3))); // streak uppfært = fyrra fyrradag
+        habitRepository.save(new Habit("___Æfa___", "___hreyfing___", 0, 14, LocalDate.now().minusDays(2))); // streak uppfært = fyrradag
+        habitRepository.save(new Habit("___Læra japönsku___", "___tungumál___", 9, 14, LocalDate.now().minusDays(1))); // streak uppfært = gær
+        habitRepository.save(new Habit("___Drekka vatn___", "___heilsa___", 7, 14, LocalDate.now().minusDays(0))); // streak uppfært = í dag
+        habitRepository.save(new Habit("___Forrita___", "___gáfnalykill___", 9, 14, LocalDate.now().minusDays(0))); // streak uppfært = í dag
+        habitRepository.save(new Habit("___Leika við köttinn minn___", "___tilfinningahlýjun___", 1, 14, LocalDate.now().minusDays(0))); // streak uppfært = í dag en með resettað streak
+        habitRepository.save(new Habit("___Elda___", "___mataræði___", 0, 0, null)).setID(100009); // streak = nýtt
+        habitRepository.save(new Habit("___Hérna er mjög langt nafn á habit til að sýna fram á hvernig habit með mjög langt nafn líti út á aðalsíðunni___", "___Hérna er mjög langt nafn á category til að sýna fram á hvernig category fyrir habit með mjög langt nafn líti út á aðalsíðunni___", 1, 1, LocalDate.now().minusDays(7)));
 
         //demo1.setID(10007);
         // JPA gives each book an ID, but here we add them Manually
