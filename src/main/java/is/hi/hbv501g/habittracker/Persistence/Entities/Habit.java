@@ -14,7 +14,8 @@ public class Habit {
     private long ID;
 
     private String name;
-    private String category;
+    @ManyToOne
+    private Category category;
     private int streak;
     private int highestStreak;
     private LocalDate lastDate;
@@ -23,7 +24,7 @@ public class Habit {
 
     }
 
-    public Habit(String name, String category, int streak, int highestStreak, LocalDate lastDate) {
+    public Habit(String name, Category category, int streak, int highestStreak, LocalDate lastDate) {
         this.name = name;
         this.category = category;
         this.streak = streak;
@@ -47,11 +48,11 @@ public class Habit {
         this.name = name;
     }
 
-    public String getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 

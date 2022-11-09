@@ -5,6 +5,27 @@
     <title>Main</title>
 </head>
 <body>
+<div th:switch="${categories}">
+    <h2 th:case="null">No Categories!</h2>
+    <div th:case="*">
+        <h2>Categories</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="category : ${categories}">
+                <td><a  th:text="${category.name}" th:href="@{/category/{id}(id=${category.ID})}"></a></td>
+                <td><a th:href="@{/deleteCategory/{id}(id=${category.ID})}">Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p><a href="/addcategory">Add a new category</a> </p>
+</div>
 <div th:switch="${habits}">
     <h2 th:case="null">No habits!</h2>
     <div th:case="*">
