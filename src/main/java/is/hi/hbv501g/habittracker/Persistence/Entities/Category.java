@@ -1,24 +1,33 @@
 package is.hi.hbv501g.habittracker.Persistence.Entities;
 
+import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
-
+@Entity
+@Table(name = "categories")
 public class Category {
     private String name;
-    private String ID;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long ID;
+    @OneToMany(orphanRemoval = true)
     private List<Habit> habits;
+    @OneToMany(orphanRemoval = true)
     private List<Goal> goals;
 
-    public Category(String catName, List<Habit> habits, List<Goal> goals){
-        this.name = catName;
+    public Category(String name, List<Habit> habits, List<Goal> goals) {
+        this.name = name;
         this.habits = habits;
         this.goals = goals;
     }
 
-    public String getID() {
+    public Category(){}
+
+    public long getID() {
         return ID;
     }
 
-    public String getCatName() {
+    public String getName() {
         return name;
     }
 
@@ -30,12 +39,12 @@ public class Category {
         return goals;
     }
 
-    public void setID(String ID) {
+    public void setID(long ID) {
         this.ID = ID;
     }
 
-    public void setCatName(String catName) {
-        this.name = catName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setHabits(List<Habit> habits) {

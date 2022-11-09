@@ -17,7 +17,8 @@ public class Goal {
     private long ID;
 
     private String name;
-    private String category;
+    @ManyToOne
+    private Category category;
 
     private boolean goalCompleted;
     private double goalProgress;
@@ -30,7 +31,7 @@ public class Goal {
 
     }
 
-    public Goal(String name, String category, boolean goalCompleted, double goalProgress, LocalDate goalDueDate, List<Task> tasks) {
+    public Goal(String name, Category category, boolean goalCompleted, double goalProgress, LocalDate goalDueDate, List<Task> tasks) {
         this.name = name;
         this.category = category;
         this.goalCompleted = goalCompleted;
@@ -55,11 +56,11 @@ public class Goal {
         this.name = name;
     }
 
-    public String getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 

@@ -1,8 +1,10 @@
 package is.hi.hbv501g.habittracker.Controllers;
 
+import is.hi.hbv501g.habittracker.Persistence.Entities.Category;
 import is.hi.hbv501g.habittracker.Persistence.Entities.Goal;
 import is.hi.hbv501g.habittracker.Persistence.Entities.Habit;
 import is.hi.hbv501g.habittracker.Persistence.Entities.Task;
+import is.hi.hbv501g.habittracker.Services.CategoryService;
 import is.hi.hbv501g.habittracker.Services.GoalService;
 import is.hi.hbv501g.habittracker.Services.HabitService;
 import is.hi.hbv501g.habittracker.Services.TaskService;
@@ -24,6 +26,8 @@ public class MainController {
     private final GoalService goalService;
     private final TaskService taskService;
 
+    private final CategoryService categoryService;
+
     /* Fastar */
     private static final String REDIRECT = "redirect:/";
     private static final String NEW_GOAL = "newGoal";
@@ -36,10 +40,12 @@ public class MainController {
 
 
     @Autowired
-    public MainController(HabitService habitService, GoalService goalService, TaskService taskService){
+    public MainController(HabitService habitService, GoalService goalService, TaskService taskService,
+                          CategoryService categoryService){
         this.habitService = habitService;
         this.goalService = goalService;
         this.taskService = taskService;
+        this.categoryService = categoryService;
     }
 
     /**
@@ -52,9 +58,11 @@ public class MainController {
         List<Habit> allHabits = habitService.findAll();
         List<Goal> allGoals = goalService.findAll();
         List<Task> allTasks = taskService.findAll();
+        List<Category> allCats = categoryService.findAll();
         model.addAttribute(HABITS, allHabits);
         model.addAttribute(GOALS, allGoals);
         model.addAttribute(TASKS, allTasks);
+        model.addAttribute("categories", allCats);
         return MAIN;
     }
 
@@ -64,19 +72,24 @@ public class MainController {
      *
      * @return String with path to "newHabit" html file.
      */
-    @RequestMapping(value="/addhabit", method = RequestMethod.GET)
-    public String addHabitForm(Habit habit){ // SonarLint: Replace this persistent entity with a simple POJO or DTO object.
+    @RequestMapping(value="/addhabit/{id}", method = RequestMethod.GET)
+    public String addHabitForm(@PathVariable("id") long id, Habit habit){ // SonarLint: Replace this persistent entity with a simple POJO or DTO object.
         return NEW_HABIT;
     }
 
-    @RequestMapping(value="/addgoal", method = RequestMethod.GET)
-    public String addGoalForm(Goal goal){
+    @RequestMapping(value="/addgoal/{id}", method = RequestMethod.GET)
+    public String addGoalForm(@PathVariable("id") long id, Goal goal){
         return NEW_GOAL;
     }
 
     @RequestMapping(value="/addtask/{id}", method = RequestMethod.GET)
     public String addTaskForm(@PathVariable("id") long id, Task task){
         return NEW_TASK;
+    }
+
+    @RequestMapping(value="/addcategory", method = RequestMethod.GET)
+    public String addCategoryForm(Category category){ // SonarLint: Replace this persistent entity with a simple POJO or DTO object.
+        return "newCategory";
     }
 
     /**
@@ -86,12 +99,18 @@ public class MainController {
      *
      * @return String with path to route /.
      */
-    @RequestMapping(value="/addhabit", method = RequestMethod.POST)
-    public String addHabit(Habit habit,  BindingResult result, Model model){
+    @RequestMapping(value="/addhabit/{id}", method = RequestMethod.POST)
+    public String addHabit(@PathVariable("id") long id, Habit habit,  BindingResult result, Model model){
         if (result.hasErrors()){
             return NEW_HABIT;
         }
+        Category category = categoryService.findByID(id);
+        List<Habit> habits = category.getHabits();
+        habits.add(habit);
+        category.setHabits(habits);
+        habit.setCategory(category);
         habitService.save(habit);
+        categoryService.save(category);
         return REDIRECT;
     }
 
@@ -102,15 +121,21 @@ public class MainController {
      *
      * @return String with path to route /.
      */
-    @RequestMapping(value="/addgoal", method = RequestMethod.POST)
-    public String addGoal(Goal goal, BindingResult result, Model model){
+    @RequestMapping(value="/addgoal/{id}", method = RequestMethod.POST)
+    public String addGoal(@PathVariable("id") long id, Goal goal, BindingResult result, Model model){
         if (result.hasErrors()){
             return NEW_GOAL;
         }
         if(goal.getGoalDueDate().isBefore(LocalDate.now())){
             return NEW_GOAL;
         }
+        Category category = categoryService.findByID(id);
+        List<Goal> goals = category.getGoals();
+        goals.add(goal);
+        category.setGoals(goals);
+        goal.setCategory(category);
         goalService.save(goal);
+        categoryService.save(category);
         return REDIRECT;
     }
 
@@ -140,6 +165,15 @@ public class MainController {
         return REDIRECT;
     }
 
+    @RequestMapping(value="/addcategory", method = RequestMethod.POST)
+    public String addCategory(Category category, BindingResult result, Model model){
+        if (result.hasErrors()){
+            return "newCategory";
+        }
+        categoryService.save(category);
+        return REDIRECT;
+    }
+
     /**
      * Route for requests to "/delete/{id}" path.
      * Deletes a habit.
@@ -149,6 +183,12 @@ public class MainController {
      */
     @RequestMapping(value="/deleteHabit/{id}", method = RequestMethod.GET)
     public String deleteHabit(@PathVariable("id") long id, Model model){
+        Habit habit = habitService.findByID(id);
+        Category cat = habit.getCategory();
+        List<Habit> habits = cat.getHabits();
+        habits.remove(habit);
+        cat.setHabits(habits);
+        categoryService.save(cat);
         habitService.deleteByID(id);
         return REDIRECT;
     }
@@ -179,6 +219,12 @@ public class MainController {
         return REDIRECT;
     }
 
+    @RequestMapping(value="/deleteCategory/{id}", method = RequestMethod.GET)
+    public String deleteCategory(@PathVariable("id") long id, Model model){
+        categoryService.deleteByID(id);
+        return REDIRECT;
+    }
+
     /**
      * Route for requests to "/updateTask/{id}" path.
      * Updates data of task after it's checked as completed.
@@ -201,7 +247,14 @@ public class MainController {
      */
     @RequestMapping(value="/updateHabit/{id}", method = RequestMethod.GET)
     public String updateStreakHabit(@PathVariable("id") long id, Model model){
+        Habit habit = habitService.findByID(id);
+        Category cat = habit.getCategory();
         habitService.updateHabitByID(id);
+        //List<Habit> habits = categoryService.getHabitsByID(id);
+        //List<Goal> goals = categoryService.getGoalsByID(id);
+        //model.addAttribute(HABITS, habits);
+        //model.addAttribute(GOALS, goals);
+        //model.addAttribute("category", cat);
         return REDIRECT;
     }
 
@@ -224,5 +277,17 @@ public class MainController {
     public String updateGoal(@PathVariable("id") long id, Model model){
         goalService.updateGoalByID(id);
         return REDIRECT;
+    }
+
+    @RequestMapping(value="/category/{id}", method = RequestMethod.GET)
+    public String openCategory(@PathVariable("id") long id, Model model){
+        categoryService.findByID(id);
+        List<Habit> habits = categoryService.getHabitsByID(id);
+        List<Goal> goals = categoryService.getGoalsByID(id);
+        Category cat = categoryService.findByID(id);
+        model.addAttribute(HABITS, habits);
+        model.addAttribute(GOALS, goals);
+        model.addAttribute("category", cat);
+        return "category";
     }
 }
