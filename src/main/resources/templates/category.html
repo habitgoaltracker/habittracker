@@ -27,8 +27,8 @@
                 <td th:text="${habit.streak}"></td>
                 <td th:text="${habit.highestStreak}"></td>
                 <td th:text="${habit.lastDate}"></td>
-                <td><a th:href="@{/updateHabit/{id}(id=${habit.ID})}">Done</a></td>
-                <td><a th:href="@{/deleteHabit/{id}(id=${habit.ID})}">Delete</a></td>
+                <td><a th:href="@{/category/{idCat}/updateHabit/{id}(idCat=${category.ID}, id=${habit.ID})}">Done</a></td>
+                <td><a th:href="@{/category/{idCat}/deleteHabit/{id}(idCat=${category.ID}, id=${habit.ID})}">Delete</a></td>
             </tr>
             </tbody>
         </table>
@@ -59,7 +59,7 @@
                 <td th:text="${goal.name}"></td>
                 <td th:text="${goal.goalDueDate}"></td>
                 <td th:text="${goal.goalProgress}"></td>
-                <td><a th:href="@{/deleteGoal/{id}(id=${goal.ID})}">Delete</a></td>
+                <td><a th:href="@{/category/{idCat}/deleteGoal/{id}(idCat=${category.ID},id=${goal.ID})}">Delete</a></td>
                 <td> <a th:href="@{/addtask/{id}(id=${goal.ID})}">Add a new task</a> </td>
                 <table>
                     <tbody>
