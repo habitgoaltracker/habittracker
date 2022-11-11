@@ -85,8 +85,8 @@ public class MainController {
         return NEW_GOAL;
     }
 
-    @RequestMapping(value="/addtask/{id}", method = RequestMethod.GET)
-    public String addTaskForm(@PathVariable("id") long id, Task task){
+    @RequestMapping(value="category/{idCat}/addtask/{id}", method = RequestMethod.GET)
+    public String addTaskForm(@PathVariable("idCat") long idCat, @PathVariable("id") long id, Task task){
         return NEW_TASK;
     }
 
@@ -150,8 +150,8 @@ public class MainController {
      * @param id id of the goal to add a task to
      * @return String with path to route /.
      */
-    @RequestMapping(value="/addtask/{id}", method = RequestMethod.POST)
-    public String addTask(@PathVariable("id") long id, Task task, BindingResult result, Model model){
+    @RequestMapping(value="/category/{idCat}/addtask/{id}", method = RequestMethod.POST)
+    public String addTask(@PathVariable("idCat") long idCat, @PathVariable("id") long id, Task task, BindingResult result, Model model){
         if (result.hasErrors()) {
             return NEW_TASK;
         }
@@ -165,7 +165,7 @@ public class MainController {
         goalService.save(goal);
         long ID = task.getID();
         taskService.newTaskUpdateByID(ID);
-        return REDIRECT;
+        return REDIRECT_CAT;
     }
 
     @RequestMapping(value="/addcategory", method = RequestMethod.POST)
@@ -184,7 +184,7 @@ public class MainController {
      * @param id id of the habit to delete.
      * @return String with path to route /.
      */
-    @RequestMapping(value="category/{idCat}/deleteHabit/{id}", method = RequestMethod.GET)
+    @RequestMapping(value="/category/{idCat}/deleteHabit/{id}", method = RequestMethod.GET)
     public String deleteHabit(@PathVariable("idCat") long idCat, @PathVariable("id") long id, Model model){
         Habit habit = habitService.findByID(id);
         Category cat = categoryService.findByID(idCat);
@@ -203,7 +203,7 @@ public class MainController {
      * @param id id of the goal to delete.
      * @return String with path to route /.
      */
-    @RequestMapping(value="category/{idCat}/deleteGoal/{id}", method = RequestMethod.GET)
+    @RequestMapping(value="/category/{idCat}/deleteGoal/{id}", method = RequestMethod.GET)
     public String deleteGoal(@PathVariable("idCat") long idCat, @PathVariable("id") long id, Model model){
         Goal goal = goalService.findByID(id);
         Category cat = categoryService.findByID(idCat);
@@ -222,10 +222,10 @@ public class MainController {
      * @param id id of the task to delete.
      * @return String with path to route /.
      */
-    @RequestMapping(value="/deleteTask/{id}", method = RequestMethod.GET)
-    public String deleteTask(@PathVariable("id") long id, Model model){
+    @RequestMapping(value="category/{idCat}/deleteTask/{id}", method = RequestMethod.GET)
+    public String deleteTask(@PathVariable("idCat") long idCat, @PathVariable("id") long id, Model model){
         taskService.deleteByID(id);
-        return REDIRECT;
+        return REDIRECT_CAT;
     }
 
     @RequestMapping(value="/deleteCategory/{id}", method = RequestMethod.GET)
@@ -241,10 +241,10 @@ public class MainController {
      * @param id id of the task to update.
      * @return String with path to route /.
      */
-    @RequestMapping(value="/updateTask/{id}", method = RequestMethod.GET)
-    public String updateTask(@PathVariable("id") long id, Model model){
+    @RequestMapping(value="/category/{idCat}/updateTask/{id}", method = RequestMethod.GET)
+    public String updateTask(@PathVariable("idCat") long idCat, @PathVariable("id") long id, Model model){
         taskService.updateTaskByID(id);
-        return REDIRECT;
+        return REDIRECT_CAT;
     }
 
     /**
