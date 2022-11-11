@@ -60,15 +60,15 @@
                 <td th:text="${goal.goalDueDate}"></td>
                 <td th:text="${goal.goalProgress}"></td>
                 <td><a th:href="@{/category/{idCat}/deleteGoal/{id}(idCat=${category.ID},id=${goal.ID})}">Delete</a></td>
-                <td> <a th:href="@{/addtask/{id}(id=${goal.ID})}">Add a new task</a> </td>
+                <td> <a th:href="@{/category/{idCat}/addtask/{id}(idCat=${category.ID}, id=${goal.ID})}">Add a new task</a> </td>
                 <table>
                     <tbody>
                     <tr th:each="task : ${goal.tasks}">
                         <td>
                             <ol th:text="${task.getName}"></ol>
                         </td>
-                        <td><a th:href="@{/updateTask/{id}(id=${task.ID})}">Done</a></td>
-                        <td><a th:href="@{/deleteTask/{id}(id=${task.ID})}">Delete</a></td>
+                        <td><a th:href="@{/category/{idCat}/updateTask/{id}(idCat=${category.ID}, id=${task.ID})}">Done</a></td>
+                        <td><a th:href="@{/category/{idCat}/deleteTask/{id}(idCat=${category.ID}, id=${task.ID})}">Delete</a></td>
                         <td th:text="${task.taskCompleted}"></td>
                     </tr>
                     </tbody>
