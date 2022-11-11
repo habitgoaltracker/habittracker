@@ -30,6 +30,9 @@ public class MainController {
 
     /* Fastar */
     private static final String REDIRECT = "redirect:/";
+
+    private static final String REDIRECT_CAT = "redirect:/category/{idCat}";
+
     private static final String NEW_GOAL = "newGoal";
     private static final String NEW_HABIT = "newHabit";
     private static final String NEW_TASK = "newTask";
@@ -82,8 +85,8 @@ public class MainController {
         return NEW_GOAL;
     }
 
-    @RequestMapping(value="/addtask/{id}", method = RequestMethod.GET)
-    public String addTaskForm(@PathVariable("id") long id, Task task){
+    @RequestMapping(value="category/{idCat}/addtask/{id}", method = RequestMethod.GET)
+    public String addTaskForm(@PathVariable("idCat") long idCat, @PathVariable("id") long id, Task task){
         return NEW_TASK;
     }
 
@@ -99,19 +102,19 @@ public class MainController {
      *
      * @return String with path to route /.
      */
-    @RequestMapping(value="/addhabit/{id}", method = RequestMethod.POST)
-    public String addHabit(@PathVariable("id") long id, Habit habit,  BindingResult result, Model model){
+    @RequestMapping(value="/addhabit/{idCat}", method = RequestMethod.POST)
+    public String addHabit(@PathVariable("idCat") long idCat, Habit habit,  BindingResult result, Model model){
         if (result.hasErrors()){
             return NEW_HABIT;
         }
-        Category category = categoryService.findByID(id);
+        Category category = categoryService.findByID(idCat);
         List<Habit> habits = category.getHabits();
         habits.add(habit);
         category.setHabits(habits);
         habit.setCategory(category);
         habitService.save(habit);
         categoryService.save(category);
-        return REDIRECT;
+        return REDIRECT_CAT;
     }
 
     /**
@@ -121,22 +124,22 @@ public class MainController {
      *
      * @return String with path to route /.
      */
-    @RequestMapping(value="/addgoal/{id}", method = RequestMethod.POST)
-    public String addGoal(@PathVariable("id") long id, Goal goal, BindingResult result, Model model){
+    @RequestMapping(value="/addgoal/{idCat}", method = RequestMethod.POST)
+    public String addGoal(@PathVariable("idCat") long idCat, Goal goal, BindingResult result, Model model){
         if (result.hasErrors()){
             return NEW_GOAL;
         }
         if(goal.getGoalDueDate().isBefore(LocalDate.now())){
             return NEW_GOAL;
         }
-        Category category = categoryService.findByID(id);
+        Category category = categoryService.findByID(idCat);
         List<Goal> goals = category.getGoals();
         goals.add(goal);
         category.setGoals(goals);
         goal.setCategory(category);
         goalService.save(goal);
         categoryService.save(category);
-        return REDIRECT;
+        return REDIRECT_CAT;
     }
 
     /**
@@ -147,8 +150,8 @@ public class MainController {
      * @param id id of the goal to add a task to
      * @return String with path to route /.
      */
-    @RequestMapping(value="/addtask/{id}", method = RequestMethod.POST)
-    public String addTask(@PathVariable("id") long id, Task task, BindingResult result, Model model){
+    @RequestMapping(value="/category/{idCat}/addtask/{id}", method = RequestMethod.POST)
+    public String addTask(@PathVariable("idCat") long idCat, @PathVariable("id") long id, Task task, BindingResult result, Model model){
         if (result.hasErrors()) {
             return NEW_TASK;
         }
@@ -162,7 +165,7 @@ public class MainController {
         goalService.save(goal);
         long ID = task.getID();
         taskService.newTaskUpdateByID(ID);
-        return REDIRECT;
+        return REDIRECT_CAT;
     }
 
     @RequestMapping(value="/addcategory", method = RequestMethod.POST)
@@ -181,16 +184,16 @@ public class MainController {
      * @param id id of the habit to delete.
      * @return String with path to route /.
      */
-    @RequestMapping(value="/deleteHabit/{id}", method = RequestMethod.GET)
-    public String deleteHabit(@PathVariable("id") long id, Model model){
+    @RequestMapping(value="/category/{idCat}/deleteHabit/{id}", method = RequestMethod.GET)
+    public String deleteHabit(@PathVariable("idCat") long idCat, @PathVariable("id") long id, Model model){
         Habit habit = habitService.findByID(id);
-        Category cat = habit.getCategory();
+        Category cat = categoryService.findByID(idCat);
         List<Habit> habits = cat.getHabits();
         habits.remove(habit);
         cat.setHabits(habits);
         categoryService.save(cat);
         habitService.deleteByID(id);
-        return REDIRECT;
+        return REDIRECT_CAT;
     }
 
     /**
@@ -200,10 +203,16 @@ public class MainController {
      * @param id id of the goal to delete.
      * @return String with path to route /.
      */
-    @RequestMapping(value="/deleteGoal/{id}", method = RequestMethod.GET)
-    public String deleteGoal(@PathVariable("id") long id, Model model){
+    @RequestMapping(value="/category/{idCat}/deleteGoal/{id}", method = RequestMethod.GET)
+    public String deleteGoal(@PathVariable("idCat") long idCat, @PathVariable("id") long id, Model model){
+        Goal goal = goalService.findByID(id);
+        Category cat = categoryService.findByID(idCat);
+        List<Goal> goals = cat.getGoals();
+        goals.remove(goal);
+        cat.setGoals(goals);
+        categoryService.save(cat);
         goalService.deleteByID(id);
-        return REDIRECT;
+        return REDIRECT_CAT;
     }
 
     /**
@@ -213,10 +222,10 @@ public class MainController {
      * @param id id of the task to delete.
      * @return String with path to route /.
      */
-    @RequestMapping(value="/deleteTask/{id}", method = RequestMethod.GET)
-    public String deleteTask(@PathVariable("id") long id, Model model){
+    @RequestMapping(value="category/{idCat}/deleteTask/{id}", method = RequestMethod.GET)
+    public String deleteTask(@PathVariable("idCat") long idCat, @PathVariable("id") long id, Model model){
         taskService.deleteByID(id);
-        return REDIRECT;
+        return REDIRECT_CAT;
     }
 
     @RequestMapping(value="/deleteCategory/{id}", method = RequestMethod.GET)
@@ -232,10 +241,10 @@ public class MainController {
      * @param id id of the task to update.
      * @return String with path to route /.
      */
-    @RequestMapping(value="/updateTask/{id}", method = RequestMethod.GET)
-    public String updateTask(@PathVariable("id") long id, Model model){
+    @RequestMapping(value="/category/{idCat}/updateTask/{id}", method = RequestMethod.GET)
+    public String updateTask(@PathVariable("idCat") long idCat, @PathVariable("id") long id, Model model){
         taskService.updateTaskByID(id);
-        return REDIRECT;
+        return REDIRECT_CAT;
     }
 
     /**
@@ -245,17 +254,13 @@ public class MainController {
      * @param id id of the habit to update.
      * @return String with path to route /.
      */
-    @RequestMapping(value="/updateHabit/{id}", method = RequestMethod.GET)
-    public String updateStreakHabit(@PathVariable("id") long id, Model model){
+    @RequestMapping(value="category/{idCat}/updateHabit/{id}", method = RequestMethod.GET)
+    public String updateStreakHabit(@PathVariable("idCat") long idCat, @PathVariable("id") long id, Model model){
         Habit habit = habitService.findByID(id);
-        Category cat = habit.getCategory();
+        Category cat = categoryService.findByID(idCat);
         habitService.updateHabitByID(id);
-        //List<Habit> habits = categoryService.getHabitsByID(id);
-        //List<Goal> goals = categoryService.getGoalsByID(id);
-        //model.addAttribute(HABITS, habits);
-        //model.addAttribute(GOALS, goals);
-        //model.addAttribute("category", cat);
-        return REDIRECT;
+        categoryService.save(cat);
+        return "redirect:/category/{idCat}";
     }
 
     //TO BE DELETED/UPDATED
@@ -288,6 +293,7 @@ public class MainController {
         model.addAttribute(HABITS, habits);
         model.addAttribute(GOALS, goals);
         model.addAttribute("category", cat);
+        model.addAttribute("idCat", id);
         return "category";
     }
 }
