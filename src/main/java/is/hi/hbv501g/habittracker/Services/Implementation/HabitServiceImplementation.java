@@ -1,5 +1,6 @@
 package is.hi.hbv501g.habittracker.Services.Implementation;
 
+import is.hi.hbv501g.habittracker.Persistence.Entities.Category;
 import is.hi.hbv501g.habittracker.Persistence.Entities.Habit;
 import is.hi.hbv501g.habittracker.Persistence.Repositories.HabitRepository;
 import is.hi.hbv501g.habittracker.Services.HabitService;

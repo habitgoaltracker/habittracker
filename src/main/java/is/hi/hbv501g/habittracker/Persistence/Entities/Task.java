@@ -78,4 +78,18 @@ public class Task {
     public void setTaskGoal(Goal taskGoal) {
         this.taskGoal = taskGoal;
     }
+/*
+    @Override
+    public String toString() {
+        return "Task{" +
+                "ID=" + ID +
+                ", name='" + name + '\'' +
+                ", taskDueDate=" + taskDueDate +
+                ", taskDescription='" + taskDescription + '\'' +
+                ", taskCompleted=" + taskCompleted +
+                ", taskGoal=" + taskGoal +
+                '}';
+    }
+
+ */
 }

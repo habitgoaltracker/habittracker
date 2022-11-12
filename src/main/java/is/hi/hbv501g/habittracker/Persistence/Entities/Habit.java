@@ -79,4 +79,18 @@ public class Habit {
     public void setLastDate(LocalDate lastDate) {
         this.lastDate = lastDate;
     }
+/*
+    @Override
+    public String toString() {
+        return "Habit{" +
+                "ID=" + ID +
+                ", name='" + name + '\'' +
+                ", category=" + category +
+                ", streak=" + streak +
+                ", highestStreak=" + highestStreak +
+                ", lastDate=" + lastDate +
+                '}';
+    }
+
+ */
 }

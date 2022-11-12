@@ -54,4 +54,20 @@ public class Category {
     public void setGoals(List<Goal> goals) {
         this.goals = goals;
     }
+    /*
+    @Override
+    public String toString() {
+        return "Category{" +
+                "name='" + name + '\'' +
+                ", ID=" + ID +
+                ", habits=" + habits +
+                ", goals=" + goals +
+                '}';
+    }
+
+     */
 }
+
+// veb3 ég gat haft toString í Category no problem, en ef það var í hinum þá fór allt í loft....eða allavegana keyrði toString Cat einu sinni....kannski fyrir vefsíðu gerðina??
+// veb3 todo Hvernig get ég haft toString?
+// veb3 todo Hvernig get ég haft null/default value í Category?

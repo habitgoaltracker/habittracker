@@ -19,20 +19,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Controller
 public class MainController {
+    /* Tilviksbreytur */
     private final HabitService habitService;
     private final GoalService goalService;
     private final TaskService taskService;
-
     private final CategoryService categoryService;
 
     /* Fastar */
     private static final String REDIRECT = "redirect:/";
-
     private static final String REDIRECT_CAT = "redirect:/category/{idCat}";
-
     private static final String NEW_GOAL = "newGoal";
     private static final String NEW_HABIT = "newHabit";
     private static final String NEW_TASK = "newTask";
@@ -40,6 +39,8 @@ public class MainController {
     private static final String HABITS = "habits";
     private static final String TASKS = "tasks";
     private static final String MAIN = "main";
+    private static final String CATEGORIES = "categories";
+    private static final String NEW_CATEGORY = "newCategory";
 
 
     @Autowired
@@ -65,7 +66,7 @@ public class MainController {
         model.addAttribute(HABITS, allHabits);
         model.addAttribute(GOALS, allGoals);
         model.addAttribute(TASKS, allTasks);
-        model.addAttribute("categories", allCats);
+        model.addAttribute(CATEGORIES, allCats);
         return MAIN;
     }
 
@@ -91,8 +92,15 @@ public class MainController {
     }
 
     @RequestMapping(value="/addcategory", method = RequestMethod.GET)
-    public String addCategoryForm(Category category){ // SonarLint: Replace this persistent entity with a simple POJO or DTO object.
-        return "newCategory";
+    public String addCategoryForm(Category category){
+        System.out.println("[a_1]  /addCategory: " + category); // veb3
+        System.out.println("[a_2]  /addCategory: (getName)" + category.getName()); // veb3
+        System.out.println("[a_3]  /addCategory: (getHabits)" + category.getHabits()); // veb3
+        System.out.println("[a_4]  /addCategory: (getGoals)" + category.getGoals()); // veb3
+        System.out.println("[a_5]  /addCategory: (getID)" + category.getID()); // veb3
+
+
+        return NEW_CATEGORY;
     }
 
     /**
@@ -127,13 +135,31 @@ public class MainController {
     @RequestMapping(value="/addgoal/{idCat}", method = RequestMethod.POST)
     public String addGoal(@PathVariable("idCat") long idCat, Goal goal, BindingResult result, Model model){
         if (result.hasErrors()){
+            System.out.println("aahhhh");
             return NEW_GOAL;
         }
         if(goal.getGoalDueDate().isBefore(LocalDate.now())){
+            System.out.println("ooooohhh");
             return NEW_GOAL;
         }
         Category category = categoryService.findByID(idCat);
+        System.out.println("[c_1]  cat: " + category); // veb3
+        System.out.println("[c_2]  cat(getName)" + category.getName()); // veb3
+        System.out.println("[c_3]  cat(getHabits)" + category.getHabits()); // veb3
+        System.out.println("[c_4]  cat(getGoals)" + category.getGoals()); // veb3
+        System.out.println("[c_5]  cat(getID)" + category.getID()); // veb3
+
         List<Goal> goals = category.getGoals();
+
+        System.out.println("[d_1]  goal: " + goal); // veb3
+        System.out.println("[d_2]  goals:" + goals); // veb3
+        System.out.println("[d_3]  goal: (getName)" + goal.getName()); // veb3
+        System.out.println("[d_4]  goal: (getGoalDueDate)" + goal.getGoalDueDate()); // veb3
+        System.out.println("[d_5]  goal: (getGoalProgress())" + goal.getGoalProgress()); // veb3
+        System.out.println("[d_6]  goal: (getTasks())" + goal.getTasks()); // veb3
+        System.out.println("[d_7]  goal: (getCategory())" + goal.getCategory()); // veb3
+        System.out.println("[d_8]  goal: (geID)" + goal.getID()); // veb3
+
         goals.add(goal);
         category.setGoals(goals);
         goal.setCategory(category);
@@ -170,8 +196,17 @@ public class MainController {
 
     @RequestMapping(value="/addcategory", method = RequestMethod.POST)
     public String addCategory(Category category, BindingResult result, Model model){
+        System.out.println("[b_1]  /addCategory: " + category); // veb3
+        System.out.println("[b_2]  /addCategory: (getName)" + category.getName()); // veb3
+        System.out.println("[b_3]  /addCategory: (getHabits)" + category.getHabits()); // veb3
+        System.out.println("[b_4]  /addCategory: (getGoals)" + category.getGoals()); // veb3
+        System.out.println("[b_5]  /addCategory: (getID)" + category.getID()); // veb3
+        // System.err.println("[b_6] category: " + category); // veb Afþví að þetta er .err þá prentast þetta seinast út...úúúú
+        System.out.printf("[b_7] category: (getName) %s", category.getName());
+        System.out.println("[b_8] MainController.addCategory");
+        System.out.println("[b_9] category = " + category + ", result = " + result + ", model = " + model);
         if (result.hasErrors()){
-            return "newCategory";
+            return NEW_CATEGORY;
         }
         categoryService.save(category);
         return REDIRECT;
@@ -296,4 +331,9 @@ public class MainController {
         model.addAttribute("idCat", id);
         return "category";
     }
+
+    // veb3 todo stats
+    // veb3 todo html lúkkið
+
+
 }

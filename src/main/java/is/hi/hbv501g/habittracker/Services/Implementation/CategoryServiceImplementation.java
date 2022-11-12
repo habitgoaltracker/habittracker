@@ -15,6 +15,8 @@ public class CategoryServiceImplementation implements CategoryService {
     @Autowired
     public CategoryServiceImplementation(CategoryRepository categoryRepository){
         this.categoryRepository = categoryRepository;
+        // veb categoryRepository.save(new Category("--default--", null, null));
+
     }
     @Override
     public Category findByName(String name) {

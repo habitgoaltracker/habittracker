@@ -95,4 +95,19 @@ public class Goal {
     public void setGoalDueDate(LocalDate goalDueDate) {
         this.goalDueDate = goalDueDate;
     }
+/*
+    @Override
+    public String toString() {
+        return "Goal{" +
+                "ID=" + ID +
+                ", name='" + name + '\'' +
+                ", category=" + category +
+                ", goalCompleted=" + goalCompleted +
+                ", goalProgress=" + goalProgress +
+                ", goalDueDate=" + goalDueDate +
+                ", tasks=" + tasks +
+                '}';
+    }
+
+ */
 }
