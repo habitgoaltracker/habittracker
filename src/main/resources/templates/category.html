@@ -35,6 +35,86 @@
     </div>
     <p><a th:href="@{/addhabit/{id}(id=${category.ID})}">Add a new habit</a> </p>
 </div>
+
+<div th:switch="${goals}">
+<div th:case="null">
+    <h2>
+    Engin markmið hér að sjá
+    </h2>
+    <p><a th:href="@{/addgoal/{id}(id=${category.ID})}">Bæta við markmiði!</a> </p>
+</div>
+    <div th:case="*">
+        <h2>Markmiðin þín</h2>
+        <hr>
+        <p><a th:href="@{/addgoal/{id}(id=${category.ID})}">Bæta við markmiði!</a> </p>
+
+
+        <div th:each="goal: ${goals}">
+
+                <div th:unless="${goal.isGoalCompleted()}">
+                    <h3  th:text="${goal.name}"> 🦾 áfram gakk</h3>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Due Date</th>
+                            <th>Progress</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td th:text="${goal.goalDueDate}"></td>
+                            <td th:text="${goal.goalProgress}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div th:each="task: ${goal.tasks}">
+                        <h5 th:text="${task.name}">
+                        <span th:if="${task.isTaskCompleted()}">✅</span>
+                        <span th:if="${not task.isTaskCompleted()}">🦖 rawr, you can do it</span>
+                        </h5>
+                        <table>
+                            <tr>
+                                <td>
+                                    <ul>
+                                        <li th:text="${task.getName()}">Taskið: </li>
+                                        <li th:text="${task.getTaskDescription()}"></li>
+                                        <li th:text="${task.getTaskDueDate()}"></li>
+                                        <li th:text="${task.getTaskGoal().getName()}"></li>
+                                        <li> <a th:href="@{/category/{idCat}/updateTask/{id}(idCat=${category.ID}, id=${task.ID})}">Búin</a></li>
+                                        <li> <a th:href="@{/category/{idCat}/deleteTask/{id}(idCat=${category.ID}, id=${task.ID})}">Henda</a></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td th:text="${goal.goalDueDate}"></td>
+                                <td th:text="${goal.goalProgress}"></td>
+                            </tr>
+                            <tr>
+                                <td th:text="${goal.goalDueDate}"></td>
+                            </tr>
+                            <tr>
+                                <td th:text="${goal.goalProgress}"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+
+            </div>
+        <div>
+            <!-- veb <pre>upplýsingar um markmið í svona banner table thing</pre> -->
+
+        </div>
+
+        <!-- veb tasks í lista undir goal table stöff? -->
+
+        <!-- veb tasks við hliðina á eða undir og sér...sit eigið table? -->
+
+    </div>
+
+
+</div>
+
 <div th:switch="${goals}">
     <h2 th:case="null">No goals!</h2>
     <div th:case="*">
@@ -55,7 +135,8 @@
                 <td><form th:action="@{/checkbox-altered/{id}(id=${goal.ID})}" method="get">
                     <input name="isChecked" type="checkbox" th:checked="${goal.goalCompleted} ? 'checked'"/>
                     <button type="submit">Submit</button>
-                </form></td>
+                </form>
+                </td>
                 <td th:text="${goal.name}"></td>
                 <td th:text="${goal.goalDueDate}"></td>
                 <td th:text="${goal.goalProgress}"></td>

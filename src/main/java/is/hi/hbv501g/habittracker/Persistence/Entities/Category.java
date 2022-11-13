@@ -68,6 +68,6 @@ public class Category {
      */
 }
 
-// veb3 ég gat haft toString í Category no problem, en ef það var í hinum þá fór allt í loft....eða allavegana keyrði toString Cat einu sinni....kannski fyrir vefsíðu gerðina??
-// veb3 todo Hvernig get ég haft toString?
-// veb3 todo Hvernig get ég haft null/default value í Category?
+// veb ég gat haft toString í Category no problem, en ef það var í hinum þá fór allt í loft....eða allavegana keyrði toString Cat einu sinni....kannski fyrir vefsíðu gerðina??
+// veb todo Hvernig get ég haft toString?
+// veb todo Hvernig get ég haft null/default value í Category?

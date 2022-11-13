@@ -15,7 +15,7 @@ public class CategoryServiceImplementation implements CategoryService {
     @Autowired
     public CategoryServiceImplementation(CategoryRepository categoryRepository){
         this.categoryRepository = categoryRepository;
-        // veb categoryRepository.save(new Category("--default--", null, null));
+        // categoryRepository.save(new Category("--default--", null, null)); // veb faux category..væri gott ef ég kynni hvernig á að búa bara eitt til við hverja keyrslu...
 
     }
     @Override
