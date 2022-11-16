@@ -50,27 +50,53 @@ public class HabitServiceImplementation implements HabitService {
 
     @Override
     public void updateHabitByID(long id) {
+        // TODO BUG Hægt að bæta við habit án nafns...
+        // TODO Skera niður í fleiri föll
         // TODO BUG Streak resettar sig ekki niður í einn þegar streak brotnar
         // TODO BUG Last date uppfærist heldur ekki í currDate þegar streak er brotið
-        // HUGMYND að bíða með að láta hafa dag á milli streaks...kannski 10sek eða eitthvað svo maður verði var við bugs fyrr.
         Habit habit = findByID(id);
-        int streak = habit.getStreak();
-        int currStreak = streak;
+        int currStreak = habit.getStreak();
         int highStreak = habit.getHighestStreak();
         LocalDate currDate = LocalDate.now();
+        LocalDate lastDate = habit.getLastDate();
+        boolean broken = !(lastDate.isEqual(currDate.minusDays(1)));
+        boolean unbroken = ( lastDate.isEqual(currDate.minusDays(1)));
 
-        if (habit.getLastDate()==null){
+        // TODO laga boolean þannig að streak plúsast þegar ýtt er á habit currDate
+        // boolean equals date aðferð
+// it work!!!
+        System.out.println("unbroken = " + unbroken);
+        System.out.println("broken = " + broken);
+        System.out.println("lastDate = " + lastDate);
+        System.out.println("currDate = " + currDate);
+        System.out.println("currDate.minus = " + currDate.minusDays(1));
+        System.out.println("highStreak = " + highStreak);
+        System.out.println("currStreak = " + currStreak);
+        System.out.println("habit = " + habit);
+        System.out.println("id = " + id);
+        System.out.println("habitRepository = " + habitRepository);
+
+        if (lastDate==null){
+            System.out.println("🪅Null habit or new habit🪅");
             habit.setLastDate(currDate);
             habit.setStreak(1);
-            currStreak = 1;
+            habit.setHighestStreak(1);
         }
 
-        else if (habit.getLastDate().equals(currDate.minusDays(1))) {
+        else if (unbroken) {
+            System.out.println("🐋Unbroken habit🐋");
             habit.setStreak(++currStreak);
             habit.setLastDate(currDate);
         }
 
-        if(habit.getStreak() > highStreak){
+        else if (broken){
+            System.out.println("❤️‍🩹Broken habit❤️‍");
+            habit.setLastDate(currDate);
+            habit.setStreak(1);
+        }
+
+        if(currStreak > highStreak){
+            //System.out.println("New high streak");
             habit.setHighestStreak(currStreak);
         }
 
