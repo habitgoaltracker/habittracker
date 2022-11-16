@@ -17,7 +17,7 @@ public class Habit {
     @ManyToOne
     private Category category;
     private int streak;
-    private int highestStreak;
+    private int highestStreak = 0;
     private LocalDate lastDate;
 
     public Habit() {
