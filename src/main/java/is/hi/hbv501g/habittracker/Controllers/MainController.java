@@ -1,14 +1,9 @@
 package is.hi.hbv501g.habittracker.Controllers;
 
-import is.hi.hbv501g.habittracker.Persistence.Entities.Category;
-import is.hi.hbv501g.habittracker.Persistence.Entities.Goal;
-import is.hi.hbv501g.habittracker.Persistence.Entities.Habit;
-import is.hi.hbv501g.habittracker.Persistence.Entities.Task;
-import is.hi.hbv501g.habittracker.Services.CategoryService;
-import is.hi.hbv501g.habittracker.Services.GoalService;
-import is.hi.hbv501g.habittracker.Services.HabitService;
-import is.hi.hbv501g.habittracker.Services.TaskService;
+import is.hi.hbv501g.habittracker.Persistence.Entities.*;
+import is.hi.hbv501g.habittracker.Services.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -25,7 +21,7 @@ public class MainController {
     private final HabitService habitService;
     private final GoalService goalService;
     private final TaskService taskService;
-
+    private final UserService userService;
     private final CategoryService categoryService;
 
     /* Fastar */
@@ -44,11 +40,12 @@ public class MainController {
 
     @Autowired
     public MainController(HabitService habitService, GoalService goalService, TaskService taskService,
-                          CategoryService categoryService){
+                          CategoryService categoryService, UserService userService){
         this.habitService = habitService;
         this.goalService = goalService;
         this.taskService = taskService;
         this.categoryService = categoryService;
+        this.userService = userService;
     }
 
     /**
@@ -57,11 +54,14 @@ public class MainController {
      * @return String with path to "main" html file.
      */
     @RequestMapping("/")
-    public String mainPage(Model model){
+    public String mainPage(Model model, HttpSession session){
+        if(session.getAttribute("LoggedInUser") == null) {
+            return "redirect:/login";
+        }
         List<Habit> allHabits = habitService.findAll();
         List<Goal> allGoals = goalService.findAll();
         List<Task> allTasks = taskService.findAll();
-        List<Category> allCats = categoryService.findAll();
+        List<Category> allCats = categoryService.findAll(session);
         model.addAttribute(HABITS, allHabits);
         model.addAttribute(GOALS, allGoals);
         model.addAttribute(TASKS, allTasks);
@@ -169,10 +169,12 @@ public class MainController {
     }
 
     @RequestMapping(value="/addcategory", method = RequestMethod.POST)
-    public String addCategory(Category category, BindingResult result, Model model){
+    public String addCategory(Category category, BindingResult result, Model model, HttpSession session){
         if (result.hasErrors()){
             return "newCategory";
         }
+        category.setUser((User) session.getAttribute("LoggedInUser"));
+        System.out.println(category.getUser().getUsername());
         categoryService.save(category);
         return REDIRECT;
     }
@@ -205,13 +207,7 @@ public class MainController {
      */
     @RequestMapping(value="/category/{idCat}/deleteGoal/{id}", method = RequestMethod.GET)
     public String deleteGoal(@PathVariable("idCat") long idCat, @PathVariable("id") long id, Model model){
-        Goal goal = goalService.findByID(id);
-        Category cat = categoryService.findByID(idCat);
-        List<Goal> goals = cat.getGoals();
-        goals.remove(goal);
-        cat.setGoals(goals);
-        categoryService.save(cat);
-        goalService.deleteByID(id);
+        goalService.deleteByID(id, idCat);
         return REDIRECT_CAT;
     }
 
@@ -279,8 +275,11 @@ public class MainController {
      * @param id id of the habit to update.
      * @return String with path to route /.
      */
-    public String updateGoal(@PathVariable("id") long id, Model model){
-        goalService.updateGoalByID(id);
+    @RequestMapping(value="category/{idCat}/updateGoal/{id}", method = RequestMethod.GET)
+    public String updateGoal(@PathVariable("idCat") long idCat, @PathVariable("id") long id, Model model){
+        goalService.deleteByID(id, idCat);
+        Category cat = categoryService.findByID(idCat);
+        categoryService.save(cat);
         return REDIRECT;
     }
 
