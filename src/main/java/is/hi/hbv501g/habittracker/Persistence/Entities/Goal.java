@@ -95,4 +95,5 @@ public class Goal {
     public void setGoalDueDate(LocalDate goalDueDate) {
         this.goalDueDate = goalDueDate;
     }
+
 }
