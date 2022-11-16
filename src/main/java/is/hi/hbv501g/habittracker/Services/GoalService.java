@@ -10,9 +10,9 @@ public interface GoalService {
 
     /**
      *
-     * Saves a goal to the database - eða - Finds a goal by its name.
-     * @param goal the goal to be saved - eða - the name of the goal.
-     * @return the saved goal -eða - the goal equivalent to the name (if any).
+     * Saves a goal to the database - or - Finds a goal by its name.
+     * @param goal the goal to be saved - or - the name of the goal.
+     * @return the saved goal - or - the goal equivalent to the name (if any).
      */
     Goal findByName(String goal);
 
@@ -40,7 +40,7 @@ public interface GoalService {
      * Deletes the requested goal.
      * @param id the ID of the goal to be deleted.
      */
-    void deleteByID(long id);
+    void deleteByID(long id, long idCat);
 
     /**
      * Updates the requested goal.

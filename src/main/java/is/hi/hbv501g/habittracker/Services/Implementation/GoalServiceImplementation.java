@@ -1,6 +1,8 @@
 package is.hi.hbv501g.habittracker.Services.Implementation;
 
+import is.hi.hbv501g.habittracker.Persistence.Entities.Category;
 import is.hi.hbv501g.habittracker.Persistence.Entities.Goal;
+import is.hi.hbv501g.habittracker.Persistence.Repositories.CategoryRepository;
 import is.hi.hbv501g.habittracker.Persistence.Repositories.GoalRepository;
 import is.hi.hbv501g.habittracker.Services.GoalService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +18,12 @@ import java.util.List;
 public class GoalServiceImplementation implements GoalService {
 
     private final GoalRepository goalRepository;
+    private final CategoryRepository categoryRepository;
 
     @Autowired
-    public GoalServiceImplementation(GoalRepository goalRepository){
+    public GoalServiceImplementation(GoalRepository goalRepository, CategoryRepository categoryRepository){
         this.goalRepository = goalRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     @Override
@@ -43,8 +47,12 @@ public class GoalServiceImplementation implements GoalService {
     }
 
     @Override
-    public void deleteByID(long id) {
-        this.goalRepository.deleteById(id);
+    public void deleteByID(long id, long idCat) {
+        Category cat = categoryRepository.findByID(idCat);
+        List<Goal> goals = cat.getGoals();
+        goals.remove(goalRepository.findByID(id));
+        categoryRepository.save(cat);
+        goalRepository.deleteById(id);
     }
 
     @Override
