@@ -88,11 +88,23 @@ public class MainController {
         return NEW_HABIT;
     }
 
+    /**
+     * Route for requests to "/addgoal" path.
+     * Displays a form that users can fill out for goal creation.
+     *
+     * @return String with path to "newGoal" html file.
+     */
     @RequestMapping(value="/addgoal/{id}", method = RequestMethod.GET)
     public String addGoalForm(@PathVariable("id") long id, Goal goal){
         return NEW_GOAL;
     }
 
+    /**
+     * Route for requests to "/addtask" path.
+     * Displays a form that users can fill out for habit creation.
+     *
+     * @return String with path to "newTask" html file.
+     */
     @RequestMapping(value="category/{idCat}/addtask/{id}", method = RequestMethod.GET)
     public String addTaskForm(@PathVariable("idCat") long idCat, @PathVariable("id") long id, Task task){
         return NEW_TASK;
@@ -108,7 +120,8 @@ public class MainController {
      * Gathers the results from a filled out "newHabit.html" form and creates a new Habit object with them.
      * Habit object is then saved and stored in database.
      *
-     * @return String with path to route /.
+     * @param idCat id of the category of the habit.
+     * @return String with path to route to current category.
      */
     @RequestMapping(value="/addhabit/{idCat}", method = RequestMethod.POST)
     public String addHabit(@PathVariable("idCat") long idCat, Habit habit,  BindingResult result, Model model){
@@ -130,7 +143,8 @@ public class MainController {
      * Gathers the results from a filled out "newGoal.html" form and creates a new Goal object with them.
      * Goal object is then saved and stored in database.
      *
-     * @return String with path to route /.
+     * @param idCat id of the category of the goal.
+     * @return String with path to route to current category.
      */
     @RequestMapping(value="/addgoal/{idCat}", method = RequestMethod.POST)
     public String addGoal(@PathVariable("idCat") long idCat, Goal goal, BindingResult result, Model model){
@@ -155,8 +169,9 @@ public class MainController {
      * Gathers the results from a filled out "newTask.html" form and creates a new Task object with them.
      * Task object is then referenced by the goal it was added to.
      *
-     * @param id id of the goal to add a task to
-     * @return String with path to route /.
+     * @param idCat id of the category of the task.
+     * @param id id of the goal to add a task to.
+     * @return String with path to route of current category.
      */
     @RequestMapping(value="/category/{idCat}/addtask/{id}", method = RequestMethod.POST)
     public String addTask(@PathVariable("idCat") long idCat, @PathVariable("id") long id, Task task, BindingResult result, Model model){
@@ -176,6 +191,15 @@ public class MainController {
         return REDIRECT_CAT;
     }
 
+    /**
+     * Route for requests to "/addcategory" path.
+     * Gathers the results from a filled out "newCategory.html" form and creates a new Category object with them.
+     * Category object is then saved and stored in database.
+     * creates a new directory on main.
+     *
+     * @param category category to be added.
+     * @return String with path to route /.
+     */
     @RequestMapping(value="/addcategory", method = RequestMethod.POST)
     public String addCategory(Category category, BindingResult result, Model model, HttpSession session){
         if (result.hasErrors()){
@@ -191,8 +215,9 @@ public class MainController {
      * Route for requests to "/delete/{id}" path.
      * Deletes a habit.
      *
+     * @param idCat id of the category of the habit.
      * @param id id of the habit to delete.
-     * @return String with path to route /.
+     * @return String with path to route of current category.
      */
     @RequestMapping(value="/category/{idCat}/deleteHabit/{id}", method = RequestMethod.GET)
     public String deleteHabit(@PathVariable("idCat") long idCat, @PathVariable("id") long id, Model model){
@@ -210,8 +235,9 @@ public class MainController {
      * Route for requests to "/deleteGoal/{id}" path.
      * Deletes a goal.
      *
+     * @param idCat id of the category of the goal.
      * @param id id of the goal to delete.
-     * @return String with path to route /.
+     * @return String with path to route of current category.
      */
     @RequestMapping(value="/category/{idCat}/deleteGoal/{id}", method = RequestMethod.GET)
     public String deleteGoal(@PathVariable("idCat") long idCat, @PathVariable("id") long id, Model model){
@@ -223,15 +249,23 @@ public class MainController {
      * Route for requests to "/deleteTask/{id}" path.
      * Deletes a task.
      *
+     * @param idCat id of the category of the task.
      * @param id id of the task to delete.
-     * @return String with path to route /.
+     * @return String with path to route of current category.
      */
-    @RequestMapping(value="category/{idCat}/deleteTask/{id}", method = RequestMethod.GET)
+    @RequestMapping(value="/category/{idCat}/deleteTask/{id}", method = RequestMethod.GET)
     public String deleteTask(@PathVariable("idCat") long idCat, @PathVariable("id") long id, Model model){
         taskService.deleteByID(id);
         return REDIRECT_CAT;
     }
 
+    /**
+     * Route for requests to "/deleteCategory/{id}" path.
+     * Deletes a category.
+     *
+     * @param id id of the category to delete.
+     * @return String with path to route /.
+     */
     @RequestMapping(value="/deleteCategory/{id}", method = RequestMethod.GET)
     public String deleteCategory(@PathVariable("id") long id, Model model){
         categoryService.deleteByID(id);
@@ -242,6 +276,7 @@ public class MainController {
      * Route for requests to "/updateTask/{id}" path.
      * Updates data of task after it's checked as completed.
      *
+     * @param idCat id of the category of the task.
      * @param id id of the task to update.
      * @return String with path to route /.
      */
@@ -255,6 +290,7 @@ public class MainController {
      * Route for requests to "/update/{id}" path.
      * Updates data of habit after it has been checked as completed for the day.
      *
+     * @param idCat id of the category of the habit.
      * @param id id of the habit to update.
      * @return String with path to route /.
      */
@@ -284,6 +320,7 @@ public class MainController {
      * Route for requests to "/updateGoal/{id}" path.
      * Updates data of a goal after it has been checked as completed.
      *
+     * @param idCat id of the category of the goal.
      * @param id id of the habit to update.
      * @return String with path to route /.
      */
@@ -292,9 +329,16 @@ public class MainController {
         goalService.deleteByID(id, idCat);
         Category cat = categoryService.findByID(idCat);
         categoryService.save(cat);
-        return REDIRECT;
+        return REDIRECT_CAT;
     }
 
+    /**
+     * Route for requests to "/category/{id}" path.
+     * Opens a category page.
+     *
+     * @param id id of the category.
+     * @return route to the category.
+     */
     @RequestMapping(value="/category/{id}", method = RequestMethod.GET)
     public String openCategory(@PathVariable("id") long id, Model model){
         categoryService.findByID(id);
