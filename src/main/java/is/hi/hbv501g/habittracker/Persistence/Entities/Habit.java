@@ -21,8 +21,7 @@ public class Habit {
     private LocalDate lastDate;
     private LocalDate createdDate;
     private int totalCompletions = 0;
-    // private boolean habitCompleted;
-    // private double habitProgress;
+    private boolean habitCompleted;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -34,7 +33,7 @@ public class Habit {
     }
 
 
-    public Habit(String name, Category category, int streak, int highestStreak, LocalDate lastDate, LocalDate createdDate, int totalCompletions, User user) {
+    public Habit(String name, Category category, int streak, int highestStreak, LocalDate lastDate, LocalDate createdDate, int totalCompletions, User user, boolean habitCompleted) {
         this.name = name;
         this.category = category;
         this.streak = streak;
@@ -115,5 +114,13 @@ public class Habit {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public boolean isHabitCompleted() {
+        return habitCompleted;
+    }
+
+    public void setHabitCompleted(boolean habitCompleted) {
+        this.habitCompleted = habitCompleted;
     }
 }
