@@ -64,45 +64,52 @@ public class HabitServiceImplementation implements HabitService {
         System.out.println("id = " + id);
         updateHabitStreak(habit);
         updateHighestStreakByID(habit);
+        updateHabitTotalCompletins(habit);
         save(habit);
 
 
     }
 
     public void updateHabitStreak(Habit habit){
+
+        // Catch error if localdate is not today? add habit vs  done habit
+
         LocalDate lastDate = habit.getLastDate();
         LocalDate currDate = LocalDate.now();
         int currStreak = habit.getStreak();
-        int totalComp = habit.getTotalCompletions();
+        //int totalComp = habit.getTotalCompletions();
+        /* problem creating stöffs
         int createdDate = habit.getCreatedDate().getDayOfYear();
         int totalChance = currDate.getDayOfYear() - createdDate;
         System.out.println("totalChance = " + totalChance);
-        System.out.println(createdDate);        ;
+        System.out.println(createdDate);
+         ;
+         */
 
-        if (lastDate==null){
+        if (lastDate==null){ // new habit
             habit.setCreatedDate(LocalDate.now());
             System.out.println("🪅Null habit or new habit🪅");
-            habit.setLastDate(currDate.minusDays(5));
-            habit.setStreak(5);
-            habit.setHighestStreak(50);
-            habit.setTotalCompletions(60);
+            habit.setLastDate(currDate);
+            habit.setStreak(1);
+            habit.setHighestStreak(1);
+            //habit.setTotalCompletions(60);
         }
 
-        else if(lastDate!=null){
+        else if(lastDate!=null){ // habit streak date stuff
             boolean broken = !(lastDate.isEqual(currDate.minusDays(1))); // boolean lostStreak?
             boolean unbroken = ( lastDate.isEqual(currDate.minusDays(1))); // boolean onStreak?
             System.out.println("unbroken = " + unbroken);
             System.out.println("broken = " + broken);
-            habit.setTotalCompletions(totalComp+1);
+            habit.setTotalCompletions(habit.getTotalCompletions()+1);
 
-            if (unbroken) {
+            if (unbroken) { // habit streak brooke
                 System.out.println("🐋Unbroken habit🐋");
                 habit.setStreak(++currStreak);
                 habit.setLastDate(currDate);
-                habit.setTotalCompletions(++totalComp);
+                //habit.setTotalCompletions(++totalComp);
             }
 
-            else if (broken){
+            else if (broken){ // habit streak unbroken
                 System.out.println("❤️‍🩹Broken habit❤️‍");
                 habit.setLastDate(currDate);
                 habit.setStreak(1);
@@ -116,26 +123,44 @@ public class HabitServiceImplementation implements HabitService {
     public void updateHighestStreakByID(Habit habit){
         int currStreak = habit.getStreak();
         int highStreak = habit.getHighestStreak();
-        System.out.println("highStreak: " + highStreak);
-        System.out.println("currStreak: " + currStreak);
 
         if(currStreak > highStreak){
             System.out.println("New high streak");
             habit.setHighestStreak(currStreak);
-            System.out.println("currStreak => " + currStreak);
-            System.out.println("highStreak => " + highStreak);
         }
 
         else {
             System.out.println("No new high streak");
             habit.setHighestStreak(highStreak);
-            System.out.println("currStreak =>> " + currStreak);
-            System.out.println("highStreak =>> " + highStreak);
 
         }
-        System.out.println("highStreak = :" + highStreak);
-        System.out.println("currStreak = :" + currStreak);
 
+
+    }
+
+    public void updateHabitTotalCompletins(Habit habit) {
+        int totalComp = habit.getTotalCompletions();
+
+        //if (habit.getLastDate())
+        habit.setTotalCompletions(++totalComp);
+        System.out.println("totalComp = " + totalComp);
+
+
+    }
+
+    public void completedHabitById(long id){
+        Habit habit = findByID(id);
+        habit.setHabitCompleted(true);
+
+
+        habit.setLastDate(LocalDate.now());
+        habit.setStreak(1);
+        habit.setTotalCompletions(habit.getTotalCompletions()+1);
+        save(habit);
+
+    }
+
+    public void totalCompletedHabitTally(boolean completed){
 
     }
 }
