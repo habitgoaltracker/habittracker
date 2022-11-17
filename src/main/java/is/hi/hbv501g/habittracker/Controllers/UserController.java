@@ -83,19 +83,6 @@ public class UserController {
         return "wrongCredentials";
     }
 
-    /**
-     * Route for requests to "/logout" path.
-     * Logs the current user out of the application.
-     * @return
-     */
-    @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public String logout(Model model, HttpSession session){
-        session.setAttribute("LoggedInUser", null);
-        model.addAttribute("LoggedInUser", null);
-        return "redirect:/login";
-    }
-
-    //TO BE DELETED
     @RequestMapping(value = "/loggedin", method = RequestMethod.GET)
     public String loggedinGET(HttpSession session, Model model){
         User sessionUser = (User) session.getAttribute("LoggedInUser");
