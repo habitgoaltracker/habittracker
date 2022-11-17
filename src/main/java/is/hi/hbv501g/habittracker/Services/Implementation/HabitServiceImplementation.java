@@ -74,15 +74,18 @@ public class HabitServiceImplementation implements HabitService {
         LocalDate currDate = LocalDate.now();
         int currStreak = habit.getStreak();
         int totalComp = habit.getTotalCompletions();
-        int createdDate = habit.getCreatedDate().getDayOfYear();
+        /*
+        *   int createdDate = habit.getCreatedDate().getDayOfYear();
         int totalChance = currDate.getDayOfYear() - createdDate;
         System.out.println("totalChance = " + totalChance);
-        System.out.println(createdDate);        ;
+        System.out.println(createdDate);
+        * */
+           ;
 
         if (lastDate==null){
             habit.setCreatedDate(LocalDate.now());
             System.out.println("🪅Null habit or new habit🪅");
-            habit.setLastDate(currDate);
+            habit.setLastDate(currDate.minusMonths(2));
             habit.setStreak(1);
             habit.setHighestStreak(1);
             habit.setTotalCompletions(1);
