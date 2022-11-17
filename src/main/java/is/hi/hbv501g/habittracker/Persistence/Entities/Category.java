@@ -15,10 +15,15 @@ public class Category {
     @OneToMany(orphanRemoval = true)
     private List<Goal> goals;
 
-    public Category(String name, List<Habit> habits, List<Goal> goals) {
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    public Category(String name, List<Habit> habits, List<Goal> goals, User user) {
         this.name = name;
         this.habits = habits;
         this.goals = goals;
+        this.user = user;
     }
 
     public Category(){}
@@ -54,4 +59,13 @@ public class Category {
     public void setGoals(List<Goal> goals) {
         this.goals = goals;
     }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
 }

@@ -6,6 +6,7 @@ import is.hi.hbv501g.habittracker.Persistence.Entities.Goal;
 import is.hi.hbv501g.habittracker.Persistence.Entities.Habit;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 @Service
 public interface CategoryService {
@@ -13,7 +14,7 @@ public interface CategoryService {
 
     Category findByID(long ID);
 
-    List<Category> findAll();
+    List<Category> findAll(HttpSession session);
 
     Category save(Category category);
 
