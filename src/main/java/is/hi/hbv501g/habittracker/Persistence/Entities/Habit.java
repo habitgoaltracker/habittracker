@@ -17,19 +17,28 @@ public class Habit {
     @ManyToOne
     private Category category;
     private int streak;
-    private int highestStreak;
+    private int highestStreak = 0;
     private LocalDate lastDate;
+    private LocalDate createdDate;
+    private int totalCompletions = 0;
+    // private boolean habitCompleted;
+    // private double habitProgress;
+    //
+
 
     public Habit() {
 
     }
 
-    public Habit(String name, Category category, int streak, int highestStreak, LocalDate lastDate) {
+
+    public Habit(String name, Category category, int streak, int highestStreak, LocalDate lastDate, LocalDate createdDate, int totalCompletions) {
         this.name = name;
         this.category = category;
         this.streak = streak;
         this.highestStreak = highestStreak;
         this.lastDate = lastDate;
+        this.createdDate = createdDate;
+        this.totalCompletions = totalCompletions;
     }
 
     public long getID() {
@@ -79,4 +88,21 @@ public class Habit {
     public void setLastDate(LocalDate lastDate) {
         this.lastDate = lastDate;
     }
+
+    public LocalDate getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDate createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public int getTotalCompletions() {
+        return totalCompletions;
+    }
+
+    public void setTotalCompletions(int totalCompletions) {
+        this.totalCompletions = totalCompletions;
+    }
+
 }

@@ -48,32 +48,94 @@ public class HabitServiceImplementation implements HabitService {
     @Override
     public void deleteByID(long id) { habitRepository.deleteById(id); }
 
+/*
+    @Override
+    public void createHabitById(Habit habit){
+        habit.setCreatedDate(LocalDate.now());
+    }
+
+ */
+
     @Override
     public void updateHabitByID(long id) {
-        // TODO BUG Streak resettar sig ekki niður í einn þegar streak brotnar
-        // TODO BUG Last date uppfærist heldur ekki í currDate þegar streak er brotið
-        // HUGMYND að bíða með að láta hafa dag á milli streaks...kannski 10sek eða eitthvað svo maður verði var við bugs fyrr.
-        Habit habit = findByID(id);
-        int streak = habit.getStreak();
-        int currStreak = streak;
-        int highStreak = habit.getHighestStreak();
-        LocalDate currDate = LocalDate.now();
 
-        if (habit.getLastDate()==null){
+        Habit habit = findByID(id);
+        System.out.println("habitName = " + habit.getName() + " habitID = " + habit.getID() + " id = "+ id);
+        System.out.println("id = " + id);
+        updateHabitStreak(habit);
+        updateHighestStreakByID(habit);
+        save(habit);
+
+
+    }
+
+    public void updateHabitStreak(Habit habit){
+        LocalDate lastDate = habit.getLastDate();
+        LocalDate currDate = LocalDate.now();
+        int currStreak = habit.getStreak();
+        int totalComp = habit.getTotalCompletions();
+        int createdDate = habit.getCreatedDate().getDayOfYear();
+        int totalChance = currDate.getDayOfYear() - createdDate;
+        System.out.println("totalChance = " + totalChance);
+        System.out.println(createdDate);        ;
+
+        if (lastDate==null){
+            habit.setCreatedDate(LocalDate.now());
+            System.out.println("🪅Null habit or new habit🪅");
             habit.setLastDate(currDate);
             habit.setStreak(1);
-            currStreak = 1;
+            habit.setHighestStreak(1);
+            habit.setTotalCompletions(1);
         }
 
-        else if (habit.getLastDate().equals(currDate.minusDays(1))) {
-            habit.setStreak(++currStreak);
-            habit.setLastDate(currDate);
-        }
+        else if(lastDate!=null){
+            boolean broken = !(lastDate.isEqual(currDate.minusDays(1))); // boolean lostStreak?
+            boolean unbroken = ( lastDate.isEqual(currDate.minusDays(1))); // boolean onStreak?
+            System.out.println("unbroken = " + unbroken);
+            System.out.println("broken = " + broken);
+            habit.setTotalCompletions(totalComp+1);
 
-        if(habit.getStreak() > highStreak){
+            if (unbroken) {
+                System.out.println("🐋Unbroken habit🐋");
+                habit.setStreak(++currStreak);
+                habit.setLastDate(currDate);
+                habit.setTotalCompletions(++totalComp);
+            }
+
+            else if (broken){
+                System.out.println("❤️‍🩹Broken habit❤️‍");
+                habit.setLastDate(currDate);
+                habit.setStreak(1);
+            }}
+        System.out.println("lastDate = " + lastDate);
+        System.out.println("currDate = " + currDate);
+        System.out.println("currDate.minus = " + currDate.minusDays(1));
+
+    }
+
+    public void updateHighestStreakByID(Habit habit){
+        int currStreak = habit.getStreak();
+        int highStreak = habit.getHighestStreak();
+        System.out.println("highStreak: " + highStreak);
+        System.out.println("currStreak: " + currStreak);
+
+        if(currStreak > highStreak){
+            System.out.println("New high streak");
             habit.setHighestStreak(currStreak);
+            System.out.println("currStreak => " + currStreak);
+            System.out.println("highStreak => " + highStreak);
         }
 
-        save(habit);
+        else {
+            System.out.println("No new high streak");
+            habit.setHighestStreak(highStreak);
+            System.out.println("currStreak =>> " + currStreak);
+            System.out.println("highStreak =>> " + highStreak);
+
+        }
+        System.out.println("highStreak = :" + highStreak);
+        System.out.println("currStreak = :" + currStreak);
+
+
     }
 }

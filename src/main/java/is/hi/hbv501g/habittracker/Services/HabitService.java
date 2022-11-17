@@ -5,6 +5,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * The interface Habit service.
+ */
 @Service
 public interface HabitService {
 
@@ -46,4 +49,7 @@ public interface HabitService {
      * @param id ID of the habit to be updated.
      */
     void updateHabitByID(long id);
+
+
+   // void createHabitById(Habit habit);
 }
