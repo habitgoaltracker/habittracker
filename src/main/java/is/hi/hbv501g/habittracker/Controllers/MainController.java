@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 public class MainController {
@@ -284,11 +285,14 @@ public class MainController {
     }
 
     @RequestMapping(value="/category/{id}", method = RequestMethod.GET)
-    public String openCategory(@PathVariable("id") long id, Model model){
+    public String openCategory(@PathVariable("id") long id, Model model, HttpSession session){
         categoryService.findByID(id);
         List<Habit> habits = categoryService.getHabitsByID(id);
         List<Goal> goals = categoryService.getGoalsByID(id);
         Category cat = categoryService.findByID(id);
+        if(!Objects.equals(cat.getUser().getUsername(), ((User) session.getAttribute("LoggedInUser")).getUsername())) {
+            return "unauthorizedAccess";
+        }
         model.addAttribute(HABITS, habits);
         model.addAttribute(GOALS, goals);
         model.addAttribute("category", cat);
