@@ -5,6 +5,7 @@
     <title th:text="${category.name}"></title>
 </head>
 <body>
+<p><a href="/"><- All Categories</a></p>
 <h1 th:text="${category.name}"></h1>
 <div th:switch="${habits}">
     <h2 th:case="null">No habits!</h2>
@@ -33,6 +34,8 @@
                 <td><a th:href="@{/category/{idCat}/deleteHabit/{id}(idCat=${category.ID}, id=${habit.ID})}">Delete</a></td>
                 <td th:text="${habit.createdDate}"></td>
                 <td th:text="${habit.totalCompletions}"></td>
+                <td th:s="${habit.totalCompletions}"></td>
+
             </tr>
             </tbody>
         </table>

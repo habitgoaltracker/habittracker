@@ -21,6 +21,9 @@ public class Habit {
     private LocalDate lastDate;
     private LocalDate createdDate;
     private int totalCompletions = 0;
+    // private boolean habitCompleted;
+    // private double habitProgress;
+    //
 
 
     public Habit() {
