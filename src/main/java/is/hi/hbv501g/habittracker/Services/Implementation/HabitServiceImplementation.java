@@ -82,10 +82,10 @@ public class HabitServiceImplementation implements HabitService {
         if (lastDate==null){
             habit.setCreatedDate(LocalDate.now());
             System.out.println("🪅Null habit or new habit🪅");
-            habit.setLastDate(currDate);
-            habit.setStreak(1);
-            habit.setHighestStreak(1);
-            habit.setTotalCompletions(1);
+            habit.setLastDate(currDate.minusDays(5));
+            habit.setStreak(5);
+            habit.setHighestStreak(50);
+            habit.setTotalCompletions(60);
         }
 
         else if(lastDate!=null){

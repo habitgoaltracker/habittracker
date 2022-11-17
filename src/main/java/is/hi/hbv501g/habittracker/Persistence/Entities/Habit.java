@@ -23,7 +23,10 @@ public class Habit {
     private int totalCompletions = 0;
     // private boolean habitCompleted;
     // private double habitProgress;
-    //
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
 
 
     public Habit() {
@@ -31,7 +34,7 @@ public class Habit {
     }
 
 
-    public Habit(String name, Category category, int streak, int highestStreak, LocalDate lastDate, LocalDate createdDate, int totalCompletions) {
+    public Habit(String name, Category category, int streak, int highestStreak, LocalDate lastDate, LocalDate createdDate, int totalCompletions, User user) {
         this.name = name;
         this.category = category;
         this.streak = streak;
@@ -39,6 +42,7 @@ public class Habit {
         this.lastDate = lastDate;
         this.createdDate = createdDate;
         this.totalCompletions = totalCompletions;
+        this.user = user;
     }
 
     public long getID() {
@@ -105,4 +109,11 @@ public class Habit {
         this.totalCompletions = totalCompletions;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
