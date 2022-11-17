@@ -1,10 +1,15 @@
 package is.hi.hbv501g.habittracker.Persistence.Entities;
 
+import com.sun.istack.NotNull;
+import org.hibernate.criterion.NotEmptyExpression;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.lang.NonNull;
+import org.springframework.boot.validation.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 @Entity
 @Table(name = "habits")
@@ -13,18 +18,22 @@ public class Habit {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long ID;
 
+
     private String name;
     @ManyToOne
     private Category category;
-    private int streak;
+    private int streak = 0;
     private int highestStreak = 0;
     private LocalDate lastDate;
-    private LocalDate createdDate;
+    private LocalDate createdDate = LocalDate.now().minusMonths(9);
     private int totalCompletions = 0;
     private boolean habitCompleted;
+    private long totalHabitChances;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    //private boolean onStreak;
 
 
 
@@ -33,7 +42,7 @@ public class Habit {
     }
 
 
-    public Habit(String name, Category category, int streak, int highestStreak, LocalDate lastDate, LocalDate createdDate, int totalCompletions, User user, boolean habitCompleted) {
+    public Habit(String name, Category category, int streak, int highestStreak, LocalDate lastDate, LocalDate createdDate, int totalCompletions, User user, boolean habitCompleted, long totalHabitChances) {
         this.name = name;
         this.category = category;
         this.streak = streak;
@@ -42,6 +51,8 @@ public class Habit {
         this.createdDate = createdDate;
         this.totalCompletions = totalCompletions;
         this.user = user;
+        this.habitCompleted = habitCompleted;
+        this.totalHabitChances = totalHabitChances;
     }
 
     public long getID() {
@@ -122,5 +133,30 @@ public class Habit {
 
     public void setHabitCompleted(boolean habitCompleted) {
         this.habitCompleted = habitCompleted;
+    }
+
+    @Override
+    public String toString() {
+        return "Habit{" + ", \n" +
+                "ID=" + ID + ", \n" +
+                " name='" + name + '\'' + ", \n" +
+                " category=" + category.getName() + ", \n" +
+                " streak=" + streak + ", \n" +
+                " highestStreak=" + highestStreak + ", \n" +
+                " lastDate=" + lastDate + ", \n" +
+                " createdDate=" + createdDate + ", \n" +
+                " totalCompletions=" + totalCompletions + ", \n" +
+                " habitCompleted=" + habitCompleted + ", \n" +
+                " user=" + user + ", \n" +
+                " totalHabitChances=" + totalHabitChances + ", \n" +
+                '}';
+    }
+
+    public long getTotalHabitChances() {
+        return totalHabitChances;
+    }
+
+    public void setTotalHabitChances(long totalHabitChances) {
+        this.totalHabitChances = totalHabitChances;
     }
 }

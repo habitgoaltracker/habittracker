@@ -50,10 +50,10 @@ public interface HabitService {
      */
     void updateHabitByID(long id);
 
+    void createHabit(Habit habit);
 
 
-
-   // void createHabitById(Habit habit);
+    // void createHabitById(Habit habit);
 
 
 }

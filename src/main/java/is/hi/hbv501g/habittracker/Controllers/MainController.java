@@ -32,6 +32,7 @@ public class MainController {
     private static final String NEW_GOAL = "newGoal";
     private static final String NEW_HABIT = "newHabit";
     private static final String NEW_TASK = "newTask";
+    private static final String NEW_CATEGORY = "newCategory";
     private static final String GOALS = "goals";
     private static final String HABITS = "habits";
     private static final String TASKS = "tasks";
@@ -81,10 +82,6 @@ public class MainController {
      */
     @RequestMapping(value="/addhabit/{id}", method = RequestMethod.GET)
     public String addHabitForm(@PathVariable("id") long id, Habit habit){
-        //habitService.findByID(id);
-       // Habit habit = habitService.findByID(id);
-
-        //habitService.createHabitById(id);
         return NEW_HABIT;
     }
 
@@ -99,8 +96,8 @@ public class MainController {
     }
 
     @RequestMapping(value="/addcategory", method = RequestMethod.GET)
-    public String addCategoryForm(Category category){ // SonarLint: Replace this persistent entity with a simple POJO or DTO object.
-        return "newCategory";
+    public String addCategoryForm(Category category){
+        return NEW_CATEGORY;
     }
 
     /**
@@ -111,7 +108,7 @@ public class MainController {
      * @return String with path to route /.
      */
     @RequestMapping(value="/addhabit/{idCat}", method = RequestMethod.POST)
-    public String addHabit(@PathVariable("idCat") long idCat, Habit habit,  BindingResult result, Model model){
+    public String addHabit(@PathVariable("idCat") long idCat, Habit habit,  BindingResult result, Model model){ // todo add validation thingamajig
         if (result.hasErrors()){
             return NEW_HABIT;
         }
@@ -120,7 +117,8 @@ public class MainController {
         habits.add(habit);
         category.setHabits(habits);
         habit.setCategory(category);
-        habitService.save(habit);
+        habitService.createHabit(habit);
+        //habitService.save(habit);
         categoryService.save(category);
         return REDIRECT_CAT;
     }
@@ -264,8 +262,6 @@ public class MainController {
         Habit habit = habitService.findByID(id);
         Category cat = categoryService.findByID(idCat);
         habit.setUser((User) session.getAttribute("LoggedInUser"));
-
-        //habitService.createHabitById(id);
         habitService.updateHabitByID(id);
         categoryService.save(cat);
         return "redirect:/category/{idCat}";
