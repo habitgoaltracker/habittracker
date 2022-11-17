@@ -3,12 +3,17 @@ package is.hi.hbv501g.habittracker.Services.Implementation;
 import is.hi.hbv501g.habittracker.Persistence.Entities.Category;
 import is.hi.hbv501g.habittracker.Persistence.Entities.Goal;
 import is.hi.hbv501g.habittracker.Persistence.Entities.Habit;
+import is.hi.hbv501g.habittracker.Persistence.Entities.User;
 import is.hi.hbv501g.habittracker.Persistence.Repositories.CategoryRepository;
 import is.hi.hbv501g.habittracker.Services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
 @Service
 public class CategoryServiceImplementation implements CategoryService {
     private final CategoryRepository categoryRepository;
@@ -27,8 +32,20 @@ public class CategoryServiceImplementation implements CategoryService {
     }
 
     @Override
-    public List<Category> findAll() {
-        return categoryRepository.findAll();
+    public List<Category> findAll(HttpSession session) {
+        List<Category> allCategories = categoryRepository.findAll();
+        List<Category> filteredCategory = new ArrayList<>();
+        if(session.getAttribute("LoggedInUser") != null){
+            for(Category category : allCategories){
+                if(category.getUser() != null){
+                    if(Objects.equals(category.getUser().getUsername(), ((User) session.getAttribute("LoggedInUser")).getUsername())) {
+                        filteredCategory.add(category);
+                    }
+                }
+            }
+            return filteredCategory;
+        }
+        return allCategories;
     }
 
     @Override
