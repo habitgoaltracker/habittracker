@@ -40,6 +40,10 @@ public class MainController {
     private static final String HABITS = "habits";
     private static final String TASKS = "tasks";
     private static final String MAIN = "main";
+    private static final String CATEGORIES = "categories";
+    private static final String CATEGORY = "category";
+    private static final String CATEGORY_ID = "idCat";
+
 
 
     @Autowired
@@ -65,7 +69,7 @@ public class MainController {
         model.addAttribute(HABITS, allHabits);
         model.addAttribute(GOALS, allGoals);
         model.addAttribute(TASKS, allTasks);
-        model.addAttribute("categories", allCats);
+        model.addAttribute(CATEGORIES, allCats);
         return MAIN;
     }
 
@@ -76,7 +80,11 @@ public class MainController {
      * @return String with path to "newHabit" html file.
      */
     @RequestMapping(value="/addhabit/{id}", method = RequestMethod.GET)
-    public String addHabitForm(@PathVariable("id") long id, Habit habit){ // SonarLint: Replace this persistent entity with a simple POJO or DTO object.
+    public String addHabitForm(@PathVariable("id") long id, Habit habit){
+        //habitService.findByID(id);
+       // Habit habit = habitService.findByID(id);
+
+        //habitService.createHabitById(id);
         return NEW_HABIT;
     }
 
@@ -258,6 +266,7 @@ public class MainController {
     public String updateStreakHabit(@PathVariable("idCat") long idCat, @PathVariable("id") long id, Model model){
         Habit habit = habitService.findByID(id);
         Category cat = categoryService.findByID(idCat);
+        //habitService.createHabitById(id);
         habitService.updateHabitByID(id);
         categoryService.save(cat);
         return "redirect:/category/{idCat}";
@@ -292,8 +301,8 @@ public class MainController {
         Category cat = categoryService.findByID(id);
         model.addAttribute(HABITS, habits);
         model.addAttribute(GOALS, goals);
-        model.addAttribute("category", cat);
-        model.addAttribute("idCat", id);
-        return "category";
+        model.addAttribute(CATEGORY, cat);
+        model.addAttribute(CATEGORY_ID, id);
+        return CATEGORY;
     }
 }

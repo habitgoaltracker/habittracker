@@ -19,6 +19,8 @@
                 <th>Last date completed</th>
                 <th>Done</th>
                 <th>Delete</th>
+                <th>Date Created</th>
+                <th>Total completions</th>
             </tr>
             </thead>
             <tbody>
@@ -29,6 +31,8 @@
                 <td th:text="${habit.lastDate}"></td>
                 <td><a th:href="@{/category/{idCat}/updateHabit/{id}(idCat=${category.ID}, id=${habit.ID})}">Done</a></td>
                 <td><a th:href="@{/category/{idCat}/deleteHabit/{id}(idCat=${category.ID}, id=${habit.ID})}">Delete</a></td>
+                <td th:text="${habit.createdDate}"></td>
+                <td th:text="${habit.totalCompletions}"></td>
             </tr>
             </tbody>
         </table>

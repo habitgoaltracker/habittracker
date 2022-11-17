@@ -42,87 +42,51 @@ public class HabitServiceImplementation implements HabitService {
 
     @Override
     public Habit save(Habit habit) {
+        createHabitById(habit);
         return habitRepository.save(habit);
     }
 
     @Override
     public void deleteByID(long id) { habitRepository.deleteById(id); }
 
+
+    @Override
+    public void createHabitById(Habit habit){
+        habit.setCreatedDate(LocalDate.now());
+        habit.setTotalCompletions(0);
+        habit.setHighestStreak(0);
+        System.out.println(habit.getCreatedDate());
+
+    }
+
     @Override
     public void updateHabitByID(long id) {
         // TODO BUG Hægt að bæta við habit án nafns...
-        // TODO Skera niður í fleiri föll
         Habit habit = findByID(id);
-        //int currStreak = habit.getStreak();
-        //int highStreak = habit.getHighestStreak();
-        //LocalDate currDate = LocalDate.now();
-        //LocalDate lastDate = habit.getLastDate();
 
-
-        System.out.println("habitName = " + habit.getName());
+        System.out.println("habitName = " + habit.getName() + " habitID = " + habit.getID() + " id = "+ id);
         System.out.println("id = " + id);
 
-        /*
-        if (lastDate==null){
-            System.out.println("🪅Null habit or new habit🪅");
-            habit.setLastDate(currDate);
-            habit.setStreak(1);
-            habit.setHighestStreak(1);
-        }
-
-        else if(lastDate!=null){
-            boolean broken = !(lastDate.isEqual(currDate.minusDays(1))); // boolean lostStreak?
-            boolean unbroken = ( lastDate.isEqual(currDate.minusDays(1))); // boolean onStreak?
-            System.out.println("unbroken = " + unbroken);
-            System.out.println("broken = " + broken);
-
-        if (unbroken) {
-            System.out.println("🐋Unbroken habit🐋");
-            habit.setStreak(++currStreak);
-            habit.setLastDate(currDate);
-        }
-
-        else if (broken){
-            System.out.println("❤️‍🩹Broken habit❤️‍");
-            habit.setLastDate(currDate);
-            habit.setStreak(1);
-        }}
-
-         */
-
-        /*
-        if(currStreak > highStreak){
-            System.out.println("New high streak");
-            habit.setHighestStreak(currStreak);
-        }
-
-        else {
-            System.out.println("No new high streak");
-            habit.setHighestStreak(0);
-        }
-
-         */
         updateHabitStreak(habit);
         updateHighestStreakByID(habit);
         save(habit);
-        int currStreak = habit.getStreak();
-        int highStreak = habit.getHighestStreak();
-        System.out.println("!!!!!!!!currStreak = " + currStreak);
-System.out.println("!!!!!!!!!highStreak = " + highStreak);
+
 
     }
 
     public void updateHabitStreak(Habit habit){
-        // local lastdate vs object lastdate
         LocalDate lastDate = habit.getLastDate();
         LocalDate currDate = LocalDate.now();
         int currStreak = habit.getStreak();
+        int totalComp = habit.getTotalCompletions();
+
 
         if (lastDate==null){
             System.out.println("🪅Null habit or new habit🪅");
             habit.setLastDate(currDate);
             habit.setStreak(1);
             habit.setHighestStreak(1);
+            habit.setTotalCompletions(1);
         }
 
         else if(lastDate!=null){
@@ -135,6 +99,7 @@ System.out.println("!!!!!!!!!highStreak = " + highStreak);
                 System.out.println("🐋Unbroken habit🐋");
                 habit.setStreak(++currStreak);
                 habit.setLastDate(currDate);
+                habit.setTotalCompletions(++totalComp);
             }
 
             else if (broken){
