@@ -259,9 +259,12 @@ public class MainController {
      * @return String with path to route /.
      */
     @RequestMapping(value="category/{idCat}/updateHabit/{id}", method = RequestMethod.GET)
-    public String updateStreakHabit(@PathVariable("idCat") long idCat, @PathVariable("id") long id, Model model){
+    public String updateStreakHabit(@PathVariable("idCat") long idCat, @PathVariable("id") long id, Model model, HttpSession session){
+
         Habit habit = habitService.findByID(id);
         Category cat = categoryService.findByID(idCat);
+        habit.setUser((User) session.getAttribute("LoggedInUser"));
+
         //habitService.createHabitById(id);
         habitService.updateHabitByID(id);
         categoryService.save(cat);
