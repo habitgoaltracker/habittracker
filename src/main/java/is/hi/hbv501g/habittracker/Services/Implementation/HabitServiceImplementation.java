@@ -20,6 +20,11 @@ public class HabitServiceImplementation implements HabitService {
 
     private final HabitRepository habitRepository;
 
+    /**
+     * Instantiates a new Habit service implementation.
+     *
+     * @param habitRepository the habit repository
+     */
     @Autowired
     public HabitServiceImplementation(HabitRepository habitRepository){
         this.habitRepository = habitRepository;
@@ -45,30 +50,32 @@ public class HabitServiceImplementation implements HabitService {
         return habitRepository.save(habit);
     }
 
+    /**
+     * Deletes the requested habit.
+     * @param id ID of the habit to be deleted.
+     */
     @Override
     public void deleteByID(long id) { habitRepository.deleteById(id); }
 
-/*
-    @Override
-    public void createHabitById(Habit habit){
-        habit.setCreatedDate(LocalDate.now());
-    }
 
- */
-
+    /**
+     * Updates the habit with the given ID.
+     * @param id ID of the habit to be updated.
+     */
     @Override
     public void updateHabitByID(long id) {
-
         Habit habit = findByID(id);
-        System.out.println("habitName = " + habit.getName() + " habitID = " + habit.getID() + " id = "+ id);
-        System.out.println("id = " + id);
         updateHabitStreak(habit);
         updateHighestStreakByID(habit);
+        completedHabitById(habit);
         save(habit);
-
-
     }
 
+    /**
+     * Update habit streak.
+     *
+     * @param habit the habit
+     */
     public void updateHabitStreak(Habit habit){
         LocalDate lastDate = habit.getLastDate();
         LocalDate currDate = LocalDate.now();
@@ -82,63 +89,61 @@ public class HabitServiceImplementation implements HabitService {
         * */
            ;
 
-        if (lastDate==null){
+        if (lastDate==null){ // new habit
             habit.setCreatedDate(LocalDate.now());
             System.out.println("🪅Null habit or new habit🪅");
             habit.setLastDate(currDate.minusMonths(2));
             habit.setStreak(1);
             habit.setHighestStreak(1);
-            habit.setTotalCompletions(1);
         }
 
-        else if(lastDate!=null){
+        else if(lastDate!=null){ // habit exists
             boolean broken = !(lastDate.isEqual(currDate.minusDays(1))); // boolean lostStreak?
             boolean unbroken = ( lastDate.isEqual(currDate.minusDays(1))); // boolean onStreak?
-            System.out.println("unbroken = " + unbroken);
-            System.out.println("broken = " + broken);
-            habit.setTotalCompletions(totalComp+1);
 
-            if (unbroken) {
-                System.out.println("🐋Unbroken habit🐋");
+            if (unbroken) { // habit streak broken
                 habit.setStreak(++currStreak);
                 habit.setLastDate(currDate);
-                habit.setTotalCompletions(++totalComp);
             }
 
-            else if (broken){
-                System.out.println("❤️‍🩹Broken habit❤️‍");
+            else if (broken){ // habit streak unbroken
                 habit.setLastDate(currDate);
                 habit.setStreak(1);
             }}
-        System.out.println("lastDate = " + lastDate);
-        System.out.println("currDate = " + currDate);
-        System.out.println("currDate.minus = " + currDate.minusDays(1));
+
 
     }
 
+    /**
+     * Update highest streak by id.
+     *
+     * @param habit the habit
+     */
     public void updateHighestStreakByID(Habit habit){
         int currStreak = habit.getStreak();
         int highStreak = habit.getHighestStreak();
-        System.out.println("highStreak: " + highStreak);
-        System.out.println("currStreak: " + currStreak);
 
         if(currStreak > highStreak){
-            System.out.println("New high streak");
             habit.setHighestStreak(currStreak);
-            System.out.println("currStreak => " + currStreak);
-            System.out.println("highStreak => " + highStreak);
         }
 
         else {
-            System.out.println("No new high streak");
             habit.setHighestStreak(highStreak);
-            System.out.println("currStreak =>> " + currStreak);
-            System.out.println("highStreak =>> " + highStreak);
 
         }
-        System.out.println("highStreak = :" + highStreak);
-        System.out.println("currStreak = :" + currStreak);
 
 
     }
+
+    /**
+     * Habit completed and total completions updated.
+     *
+     * @param habit the habit
+     */
+    public void completedHabitById(Habit habit){
+        habit.setHabitCompleted(true);
+        habit.setTotalCompletions(habit.getTotalCompletions()+1);
+    }
+
+
 }

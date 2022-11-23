@@ -59,10 +59,7 @@
             </thead>
             <tbody>
             <tr th:each="goal : ${goals}">
-                <td><form th:action="@{/checkbox-altered/{id}(id=${goal.ID})}" method="get">
-                    <input name="isChecked" type="checkbox" th:checked="${goal.goalCompleted} ? 'checked'"/>
-                    <button type="submit">Submit</button>
-                </form></td>
+                <td><a th:href="@{/category/{idCat}/updateGoal/{id}(idCat=${category.ID}, id=${goal.ID})}">Complete</td>
                 <td th:text="${goal.name}"></td>
                 <td th:text="${goal.goalDueDate}"></td>
                 <td th:text="${goal.goalProgress}"></td>
@@ -86,6 +83,6 @@
     </div>
     <p><a th:href="@{/addgoal/{id}(id=${category.ID})}">Add a new goal</a> </p>
 </div>
-<h3><a href="/">Return to Main</a> </h3>
+<h3><a href="/">Return to Main</a> </h3> <br>
 </body>
 </html>
