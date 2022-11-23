@@ -6,7 +6,7 @@
     <link href="../static/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet" />
 </head>
 <body class="login--body">
-<div class="signwrapper">
+<div class="wrapper">
 <h2>Login</h2>
     <form class="signform" action="#" th:action="@{/login}" th:object="${user}" method="post">
         <input class="logintext" type="text" name="username" id="username" placeholder="Username" th:field="*{username}"/>
