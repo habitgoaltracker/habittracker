@@ -116,7 +116,7 @@ public class Habit {
         this.user = user;
     }
 
-    public boolean isHabitCompleted() {
+    public boolean getIsHabitCompleted() {
         return habitCompleted;
     }
 

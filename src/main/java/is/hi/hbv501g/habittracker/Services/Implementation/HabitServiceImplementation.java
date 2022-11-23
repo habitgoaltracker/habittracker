@@ -132,8 +132,11 @@ public class HabitServiceImplementation implements HabitService {
      * @param habit the habit
      */
     public void completedHabitById(Habit habit){
-        habit.setHabitCompleted(true);
-        habit.setTotalCompletions(habit.getTotalCompletions()+1);
+        if(!habit.getIsHabitCompleted()){
+            habit.setHabitCompleted(true);
+            habit.setTotalCompletions(habit.getTotalCompletions()+1);
+        }
+        System.out.println("Habit already completed");
     }
 
 
