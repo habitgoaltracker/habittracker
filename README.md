@@ -6,7 +6,7 @@
 
 ## Project Topic: Habit tracker
 
-> 👀 Vision: An app for tracking **habits** and **goals**, with the possibility of dividing up goals into managable **tasks**.
+> 👀 Vision: An app for tracking **habits** and **goals**, with the possibility of dividing up goals into managable **tasks** with progress updates for your goals.
 
 
 ## Team Nein 9️⃣: habittracker
@@ -35,3 +35,6 @@
 *back to basics*
 
 🛫...->...🪐...->...🌌
+
+---
+Til að keyra verkefnið locally er url-ið: http://localhost:8080/

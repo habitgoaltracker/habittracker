@@ -47,7 +47,6 @@ public class Habit {
     public long getID() {
         return ID;
     }
-
     public void setID(long ID) {
         this.ID = ID;
     }

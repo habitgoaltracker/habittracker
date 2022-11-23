@@ -3,14 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="${category.name}"></title>
+    <link href="../static/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet" />
+    <script>
+
+        function onHover(e){
+            e.setAttribute("src", '/images/checkedwhite.png');
+            e.setAttribute("onmouseover", "this.src='/images/checkedwhite.png';")
+            e.setAttribute("onmouseout", "this.src='/images/uncheckedwhite.png';");
+        }
+
+        const colors = ['mediumpurple'];
+        const random_color = colors[Math.floor(Math.random() * colors.length)];
+
+        function onLoad(){
+            document.body.style.backgroundColor = random_color;
+        }
+
+    </script>
 </head>
-<body>
+<body class="cat--body" onload="onLoad()">
 <p><a href="/"><- All Categories</a></p>
+<div class="habitandgoals">
 <h1 th:text="${category.name}"></h1>
-<div th:switch="${habits}">
+<div class="habits" th:switch="${category.habits}">
     <h2 th:case="null">No habits!</h2>
     <div th:case="*">
         <h2>Habits</h2>
+        <div class="table">
         <table>
             <thead>
             <tr>
@@ -30,8 +49,19 @@
                 <td th:text="${habit.streak}"></td>
                 <td th:text="${habit.highestStreak}"></td>
                 <td th:text="${habit.lastDate}"></td>
-                <td><a th:href="@{/category/{idCat}/updateHabit/{id}(idCat=${category.ID}, id=${habit.ID})}">Done</a></td>
-                <td><a th:href="@{/category/{idCat}/deleteHabit/{id}(idCat=${category.ID}, id=${habit.ID})}">Delete</a></td>
+                <td>
+                    <a class="habitdone" th:href="@{/category/{idCat}/updateHabit/{id}(idCat=${category.ID}, id=${habit.ID})}">
+                        <div th:if="${habit.habitCompleted}">
+                            <img th:src="@{/images/checkedwhite.png}" width="25" height="25"/>
+                        </div>
+                        <div th:unless="${habit.habitCompleted}">
+                            <img th:src="@{/images/uncheckedwhite.png}" onmouseover="onHover(this)" width="25" height="25"/>
+                        </div>
+                    </a>
+                </td>
+                <td><a  th:href="@{/category/{idCat}/deleteHabit/{id}(idCat=${category.ID}, id=${habit.ID})}">
+                    <img th:src="@{/images/trash.png}" onmouseover="this.src='/images/trashdelete.png';"
+                         onmouseout="this.src='/images/trash.png';" width="25" height="25"/></a></td>
                 <td th:text="${habit.createdDate}"></td>
                 <td th:text="${habit.totalCompletions}"></td>
                 <td th:s="${habit.totalCompletions}"></td>
@@ -40,12 +70,14 @@
             </tbody>
         </table>
     </div>
-    <p><a th:href="@{/addhabit/{id}(id=${category.ID})}">Add a new habit</a> </p>
+    <p><a class="button--add" th:href="@{/addhabit/{id}(id=${category.ID})}">Add a new habit</a> </p>
+        </div>
 </div>
-<div th:switch="${goals}">
+<div class="goals" th:switch="${goals}">
     <h2 th:case="null">No goals!</h2>
     <div th:case="*">
         <h2>Goals</h2>
+        <div class="table">
         <table>
             <thead>
             <tr>
@@ -63,7 +95,10 @@
                 <td th:text="${goal.name}"></td>
                 <td th:text="${goal.goalDueDate}"></td>
                 <td th:text="${goal.goalProgress}"></td>
-                <td><a th:href="@{/category/{idCat}/deleteGoal/{id}(idCat=${category.ID},id=${goal.ID})}">Delete</a></td>
+                <td><a th:href="@{/category/{idCat}/deleteGoal/{id}(idCat=${category.ID},id=${goal.ID})}">
+                    <img th:src="@{/images/trash.png}" onmouseover="this.src='/images/trashdelete.png';"
+                         onmouseout="this.src='/images/trash.png';" width="25" height="25"/></a>
+                </td>
                 <td> <a th:href="@{/category/{idCat}/addtask/{id}(idCat=${category.ID}, id=${goal.ID})}">Add a new task</a> </td>
                 <table>
                     <tbody>
@@ -72,7 +107,9 @@
                             <ol th:text="${task.getName}"></ol>
                         </td>
                         <td><a th:href="@{/category/{idCat}/updateTask/{id}(idCat=${category.ID}, id=${task.ID})}">Done</a></td>
-                        <td><a th:href="@{/category/{idCat}/deleteTask/{id}(idCat=${category.ID}, id=${task.ID})}">Delete</a></td>
+                        <td><a th:href="@{/category/{idCat}/deleteTask/{id}(idCat=${category.ID}, id=${task.ID})}">
+                            <img th:src="@{/images/trash.png}" onmouseover="this.src='/images/trashdelete.png';"
+                                 onmouseout="this.src='/images/trash.png';" width="25" height="25"/></a></td>
                         <td th:text="${task.taskCompleted}"></td>
                     </tr>
                     </tbody>
@@ -80,9 +117,11 @@
             </tr>
             </tbody>
         </table>
+        </div>
+    <p><a class="button--add" th:href="@{/addgoal/{id}(id=${category.ID})}">Add a new goal</a> </p>
     </div>
-    <p><a th:href="@{/addgoal/{id}(id=${category.ID})}">Add a new goal</a> </p>
 </div>
 <h3><a href="/">Return to Main</a> </h3> <br>
+</div>
 </body>
 </html>
