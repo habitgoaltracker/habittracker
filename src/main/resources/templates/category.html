@@ -22,12 +22,14 @@
     </script>
 </head>
 <body class="cat--body" onload="onLoad()">
-<p><a href="/"><- All Categories</a></p>
+<p><a href="/" class="allcat">All Categories</a></p>
 <div class="habitandgoals">
 <h1 th:text="${category.name}"></h1>
 <div class="habits" th:switch="${category.habits}">
-    <h2 th:case="null">No habits!</h2>
-    <div th:case="*">
+    <div th:if="${#lists.isEmpty(category.habits)}">
+        <p><a class="button--add" th:href="@{/addhabit/{id}(id=${category.ID})}">Add a new habit</a> </p>
+    </div>
+    <div th:unless="${#lists.isEmpty(category.habits)}">
         <h2>Habits</h2>
         <div class="table">
         <table>
@@ -73,9 +75,11 @@
     <p><a class="button--add" th:href="@{/addhabit/{id}(id=${category.ID})}">Add a new habit</a> </p>
         </div>
 </div>
-<div class="goals" th:switch="${goals}">
-    <h2 th:case="null">No goals!</h2>
-    <div th:case="*">
+<div class="goals" th:switch="${category.goals}">
+    <div th:if="${#lists.isEmpty(category.goals)}">
+        <p><a class="button--add" th:href="@{/addgoal/{id}(id=${category.ID})}">Add a new goal</a> </p>
+    </div>
+    <div th:unless="${#lists.isEmpty(category.goals)}">
         <h2>Goals</h2>
         <div class="table">
         <table>
@@ -91,7 +95,10 @@
             </thead>
             <tbody>
             <tr th:each="goal : ${goals}">
-                <td> <a th:href="@{/category/{idCat}/updateGoal/{id}(idCat=${category.ID}, id=${goal.ID})}">Complete</a> </td>
+                <td> <a th:href="@{/category/{idCat}/updateGoal/{id}(idCat=${category.ID}, id=${goal.ID})}">
+                    <img th:src="@{/images/uncheckedwhite.png}" onmouseover="onHover(this)" width="25" height="25"/>
+                </a>
+                </td>
                 <td th:text="${goal.name}"></td>
                 <td th:text="${goal.goalDueDate}"></td>
                 <td> <progress th:value="${goal.goalProgress}">[(${goal.goalProgress})]</progress></td>
@@ -99,14 +106,22 @@
                     <img th:src="@{/images/trash.png}" onmouseover="this.src='/images/trashdelete.png';"
                          onmouseout="this.src='/images/trash.png';" width="25" height="25"/></a>
                 </td>
-                <td> <a th:href="@{/category/{idCat}/addtask/{id}(idCat=${category.ID}, id=${goal.ID})}">Add a new task</a> </td>
+                <td> <a class="button--add--task" th:href="@{/category/{idCat}/addtask/{id}(idCat=${category.ID}, id=${goal.ID})}">Add a new task</a> </td>
                 <table>
                     <tbody>
                     <tr th:each="task : ${goal.tasks}">
                         <td>
                             <ol th:text="${task.getName}"></ol>
                         </td>
-                        <td><a th:href="@{/category/{idCat}/updateTask/{id}(idCat=${category.ID}, id=${task.ID})}">Done</a></td>
+                        <td><a th:href="@{/category/{idCat}/updateTask/{id}(idCat=${category.ID}, id=${task.ID})}">
+                             <div th:if="${task.taskCompleted}">
+                                <img th:src="@{/images/checkedwhite.png}" width="25" height="25"/>
+                            </div>
+                            <div th:unless="${task.taskCompleted}">
+                                <img th:src="@{/images/uncheckedwhite.png}" onmouseover="onHover(this)" width="25" height="25"/>
+                            </div>
+                        </a>
+                        </td>
                         <td><a th:href="@{/category/{idCat}/deleteTask/{id}(idCat=${category.ID}, id=${task.ID})}">
                             <img th:src="@{/images/trash.png}" onmouseover="this.src='/images/trashdelete.png';"
                                  onmouseout="this.src='/images/trash.png';" width="25" height="25"/></a></td>
@@ -121,7 +136,6 @@
     <p><a class="button--add" th:href="@{/addgoal/{id}(id=${category.ID})}">Add a new goal</a> </p>
     </div>
 </div>
-<h3><a href="/">Return to Main</a> </h3> <br>
 </div>
 </body>
 </html>

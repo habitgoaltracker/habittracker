@@ -40,6 +40,10 @@ body {
     background-color: #ffb34f;
 }
 
+.newtask--body {
+    background: #57a858;
+}
+
 .prufa {
     text-transform: capitalize;
 }
@@ -92,8 +96,49 @@ body {
     box-shadow: inset 0 0 0 0 #000000;
 }
 
+.button--add--task {
+    background-color: rebeccapurple;
+    border: 1px solid white;
+    border-radius: 5px;
+    color: white;
+    display: inline-block;
+    padding: 0.5rem 0.25rem;
+    text-decoration: none;
+    transition: ease-out 0.4s;
+    box-shadow: inset 0 0 0 0 purple;
+    font-size: 0.75rem;
+}
+
+.allcat {
+    background-color: rgba(14,10,11,0.38);
+    border: 1px solid white;
+    border-radius: 5px;
+    color: white;
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    text-decoration: none;
+    transition: ease-out 0.4s;
+    box-shadow: inset 0 0 0 0 #000000;
+}
+
+.button--category {
+    background-color: #ffc564;
+    border: 1px solid white;
+    border-radius: 5px;
+    color: white;
+    display: inline-block;
+    padding: 0.5rem 0.5rem;
+    text-decoration: none;
+    transition: ease-out 0.4s;
+    box-shadow: inset 0 0 0 0 #000000;
+}
+
 .button--add:hover {
     box-shadow: inset 400px 0 0 0 purple;
+}
+
+.button--add--task::content {
+    font-size: 0.5rem;
 }
 
 .button--add--cat:hover {
@@ -101,6 +146,18 @@ body {
 }
 
 .button--logout:hover {
+    box-shadow: inset 400px 0 0 0 #000000;
+}
+
+.allcat:hover {
+    box-shadow: inset 400px 0 0 0 #000000;
+}
+
+.button--add--task:hover {
+    box-shadow: inset 400px 0 0 0 purple;
+}
+
+.button--category:hover {
     box-shadow: inset 400px 0 0 0 #000000;
 }
 
@@ -148,20 +205,30 @@ body {
     background-color: #4aaeb7;
 }
 
+.newtasktext, textarea {
+    background: #418141;
+}
+
 input, select, textarea {
     color: white;
+}
+
+input {
+    border-radius: 3px;
 }
 
 .button--submit--login {
     color: white;
     width: 4rem;
     background-color: cornflowerblue;
+    border-radius: 5px;
 }
 
 .button--submit--signup {
     color: white;
     width: 4rem;
     background-color: #ff525c;
+    border-radius: 5px;
 }
 
 .button--submit--newcat {
@@ -174,11 +241,11 @@ input, select, textarea {
 }
 
 .button--submit--habit {
-    background-color: #4dd6df;
+    background-color: #e6b1e4;
     border-radius: 5px;
     color: white;
     display: inline-block;
-    padding: calc(0.25rem) 0.5rem;
+    padding: 0.25rem 0.5rem;
     text-decoration: none;
 }
 
@@ -187,13 +254,23 @@ input, select, textarea {
     border-radius: 5px;
     color: white;
     display: inline-block;
-    padding: calc(0.25rem) 0.5rem;
+    padding: 0.25rem 0.5rem;
+    text-decoration: none;
+}
+
+.button--submit--task {
+    background-color: #59ac59;
+    border-radius: 5px;
+    color: white;
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
     text-decoration: none;
 }
 
 .button--signup {
     background-color: cornflowerblue;
     border: 1px solid white;
+    border-radius: 5px;
     color: white;
     font-weight: normal;
     display: inline-block;
@@ -229,6 +306,14 @@ input, select, textarea {
     background-color: #47b8ba;
 }
 
+.wrongcred--body {
+    background: darkslategrey;
+}
+
+.error--body {
+    background: darkslategrey;
+}
+
 .wrapper {
     margin-left: 25%;
     margin-right: 25%;
@@ -243,5 +328,22 @@ form {
 .newcatform {
     transform: scale(1.25);
 }
+
+progress {
+    position: relative;
+    width: 10rem;
+    height: 1rem;
+    background: crimson;
+    -webkit-border-radius: 5px;
+}
+
+progress::-webkit-progress-value{
+    background: #68008c;
+}
+
+progress::-webkit-progress-bar {
+    background: #d1c3e6;
+}
+
 
 

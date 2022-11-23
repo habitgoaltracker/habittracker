@@ -3,25 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>Add a new task</title>
+    <link href="../static/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet" />
 </head>
-<body>
+<body class="newtask--body">
 
-<form action="#" th:action="@{${#httpServletRequest.requestURI}}" th:object="${task}" method="post">
-    <label for="name">Name</label>
-    <input type="text" th:field="*{name}" id="name" placeholder="Name">
+<div class="wrapper">
+    <h1>New task</h1>
+<form class="newtask--form" action="#" th:action="@{${#httpServletRequest.requestURI}}" th:object="${task}" method="post">
+    <label for="name">Name:</label>
+    <input class="newtasktext" type="text" th:field="*{name}" id="name" placeholder="Name">
     <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
 
     <label for="taskDescription">Description:</label>
-    <input type="text" th:field="*{taskDescription}" id="taskDescription" placeholder="Description">
+    <input class="newtasktext" type="text" th:field="*{taskDescription}" id="taskDescription" placeholder="Description">
     <span th:if="${#fields.hasErrors('taskDescription')}" th:errors="*{taskDescription}"></span>
 
     <label for="taskDueDate">Due date:</label>
-    <input type="date" th:field="*{taskDueDate}" id="taskDueDate" placeholder="Due date">
+    <input class="newtasktext" type="date" th:field="*{taskDueDate}" id="taskDueDate" placeholder="Due date">
     <span th:if="${#fields.hasErrors('taskDueDate')}" th:errors="*{taskDueDate}"></span>
-
-
-
-    <input type="submit" value="Add Task">
+    <input class="button--submit--task" type="submit" value="Add Task">
 </form>
+</div>
 </body>
 </html>
