@@ -132,7 +132,7 @@ public class HabitServiceImplementation implements HabitService {
      * @param habit the habit
      */
     public void completedHabitById(Habit habit){
-        if(!habit.getIsHabitCompleted()){
+        if(!habit.isHabitCompleted()){
             habit.setHabitCompleted(true);
             habit.setTotalCompletions(habit.getTotalCompletions()+1);
         }
