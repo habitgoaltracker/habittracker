@@ -77,7 +77,7 @@ public class HabitServiceImplementation implements HabitService {
         int createdDate = habit.getCreatedDate().getDayOfYear();
         int totalChance = currDate.getDayOfYear() - createdDate;
         System.out.println("totalChance = " + totalChance);
-        System.out.println(createdDate);        ;
+        System.out.println(createdDate);
 
         if (lastDate==null){
             habit.setCreatedDate(LocalDate.now());
