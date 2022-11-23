@@ -3,13 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Signup</title>
+    <link href="../static/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet" />
 </head>
-<body>
-<h2>Signup form</h2>
-<form action="#" th:action="@{/signup}" th:object="${user}" method="post">
-    <input type="text" name="username" id="username" placeholder="Username" th:field="*{username}"/>
-    <input type="password" name="password" id="password" placeholder="Password" th:field="*{password}"/>
-    <input type="submit" value="Sign up"/>
-</form>
+<body class="signup--body">
+<div class="signwrapper">
+<h2>Signup</h2>
+    <form class="signform" action="#" th:action="@{/signup}" th:object="${user}" method="post">
+        <input class="signuptext" type="text" name="username" id="username" placeholder="Username" th:field="*{username}"/>
+        <input class="signuptext" type="password" name="password" id="password" placeholder="Password" th:field="*{password}"/>
+        <input class="button--submit--signup" type="submit" value="Sign up"/>
+    </form>
+</div>
 </body>
 </html>

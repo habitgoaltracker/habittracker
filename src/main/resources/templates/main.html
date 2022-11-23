@@ -3,29 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>Main</title>
+    <link href="../static/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet" />
 </head>
-<body>
+<body class="main--body">
 <div th:switch="${categories}">
     <h2 th:case="null">No Categories!</h2>
     <div th:case="*">
         <h2>Categories</h2>
-        <table>
-            <thead>
-            <tr>
-                <th>Name</th>
-                <th>Delete</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="category : ${categories}">
-                <td><a  th:text="${category.name}" th:href="@{/category/{id}(id=${category.ID})}"></a></td>
-                <td><a th:href="@{/deleteCategory/{id}(id=${category.ID})}">Delete</a></td>
-            </tr>
-            </tbody>
+        <table class="main--table">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="category : ${categories}">
+                    <td><a  th:text="${category.name}" th:href="@{/category/{id}(id=${category.ID})}"></a></td>
+                    <td><a th:href="@{/deleteCategory/{id}(id=${category.ID})}">
+                        <img th:src="@{/images/trash.png}" onmouseover="this.src='/images/trashdelete.png';"
+                             onmouseout="this.src='/images/trash.png';" width="25" height="25"/></a></td>
+                </tr>
+                </tbody>
         </table>
     </div>
-    <p><a href="/addcategory">Add a new category</a> </p>
+    <p><a class="button--add--cat" href="/addcategory">Add a new category</a> </p>
 </div>
-<h4><a href="/logout">Logout</a> </h4>
+<h4><a class="button--logout" href="/logout">Logout</a> </h4>
 </body>
 </html>
