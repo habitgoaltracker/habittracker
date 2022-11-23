@@ -87,7 +87,7 @@ public class HabitServiceImplementation implements HabitService {
         System.out.println("totalChance = " + totalChance);
         System.out.println(createdDate);
         * */
-           ;
+
 
         if (lastDate==null){ // new habit
             habit.setCreatedDate(LocalDate.now());
