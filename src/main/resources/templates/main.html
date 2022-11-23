@@ -19,7 +19,7 @@
                 </thead>
                 <tbody>
                 <tr th:each="category : ${categories}">
-                    <td><a  th:text="${category.name}" th:href="@{/category/{id}(id=${category.ID})}"></a></td>
+                    <td><a class="button--category"  th:text="${category.name}" th:href="@{/category/{id}(id=${category.ID})}"></a></td>
                     <td><a th:href="@{/deleteCategory/{id}(id=${category.ID})}">
                         <img th:src="@{/images/trash.png}" onmouseover="this.src='/images/trashdelete.png';"
                              onmouseout="this.src='/images/trash.png';" width="25" height="25"/></a></td>
