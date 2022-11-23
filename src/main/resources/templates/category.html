@@ -91,10 +91,10 @@
             </thead>
             <tbody>
             <tr th:each="goal : ${goals}">
-                <td><a th:href="@{/category/{idCat}/updateGoal/{id}(idCat=${category.ID}, id=${goal.ID})}">Complete</td>
+                <td> <a th:href="@{/category/{idCat}/updateGoal/{id}(idCat=${category.ID}, id=${goal.ID})}">Complete</a> </td>
                 <td th:text="${goal.name}"></td>
                 <td th:text="${goal.goalDueDate}"></td>
-                <td th:text="${goal.goalProgress}"></td>
+                <td> <progress th:value="${goal.goalProgress}">[(${goal.goalProgress})]</progress></td>
                 <td><a th:href="@{/category/{idCat}/deleteGoal/{id}(idCat=${category.ID},id=${goal.ID})}">
                     <img th:src="@{/images/trash.png}" onmouseover="this.src='/images/trashdelete.png';"
                          onmouseout="this.src='/images/trash.png';" width="25" height="25"/></a>

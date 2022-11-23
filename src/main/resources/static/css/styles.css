@@ -20,9 +20,6 @@ html {
 
 h1 {
     font-size: 2.5rem;
-    font-weight: 400;
-    line-height: 1.2;
-    margin-bottom: 0.5rem;
 }
 
 h2 {
@@ -115,13 +112,13 @@ body {
     padding-right: 25%;
 }
 
-.signwrapper {
+.wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.signwrapper input {
+.wrapper input {
     text-align: center;
     margin-bottom: 1rem;
     border: 1px solid #ffffff;
@@ -139,6 +136,18 @@ body {
     background-color: #ff9185;
 }
 
+.newcattext, textarea {
+    background-color: #36d478;
+}
+
+.newhabittext, textarea {
+    background-color: #c376d4;
+}
+
+.newgoaltext, textarea {
+    background-color: #4aaeb7;
+}
+
 input, select, textarea {
     color: white;
 }
@@ -153,6 +162,33 @@ input, select, textarea {
     color: white;
     width: 4rem;
     background-color: #ff525c;
+}
+
+.button--submit--newcat {
+    background-color: #2fff4b;
+    border-radius: 5px;
+    color: white;
+    display: inline-block;
+    padding: calc(0.25rem) 0.5rem;
+    text-decoration: none;
+}
+
+.button--submit--habit {
+    background-color: #4dd6df;
+    border-radius: 5px;
+    color: white;
+    display: inline-block;
+    padding: calc(0.25rem) 0.5rem;
+    text-decoration: none;
+}
+
+.button--submit--goal {
+    background-color: #57dde6;
+    border-radius: 5px;
+    color: white;
+    display: inline-block;
+    padding: calc(0.25rem) 0.5rem;
+    text-decoration: none;
 }
 
 .button--signup {
@@ -181,15 +217,31 @@ input, select, textarea {
     background-color: indianred;
 }
 
-.signwrapper {
+.newcat--body {
+    background-color: #8fffab;
+}
+
+.newhabit--body {
+    background-color: #cd9bd4;
+}
+
+.newgoal--body {
+    background-color: #47b8ba;
+}
+
+.wrapper {
     margin-left: 25%;
     margin-right: 25%;
 }
 
-.signform {
+form {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.newcatform {
+    transform: scale(1.25);
 }
 
 
