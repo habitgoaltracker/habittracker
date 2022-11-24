@@ -147,6 +147,9 @@ public class CategoryController {
         if (result.hasErrors()){
             return NEW_GOAL;
         }
+        if(goal.getGoalDueDate()==null){
+            return NEW_GOAL;
+        }
         if(goal.getGoalDueDate().isBefore(LocalDate.now())){
             return NEW_GOAL;
         }
