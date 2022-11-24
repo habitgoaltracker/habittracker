@@ -11,15 +11,15 @@
     <h1>New task</h1>
 <form class="newtask--form" action="#" th:action="@{${#httpServletRequest.requestURI}}" th:object="${task}" method="post">
     <label for="name">Name:</label>
-    <input class="newtasktext" type="text" th:field="*{name}" id="name" placeholder="Name">
+    <input class="newtasktext" type="text" th:field="*{name}" id="name">
     <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
 
     <label for="taskDescription">Description:</label>
-    <input class="newtasktext" type="text" th:field="*{taskDescription}" id="taskDescription" placeholder="Description">
+    <input class="newtasktext" type="text" th:field="*{taskDescription}" id="taskDescription">
     <span th:if="${#fields.hasErrors('taskDescription')}" th:errors="*{taskDescription}"></span>
 
     <label for="taskDueDate">Due date:</label>
-    <input class="newtasktext" type="date" th:field="*{taskDueDate}" id="taskDueDate" placeholder="Due date">
+    <input class="newtasktext" type="date" th:field="*{taskDueDate}" id="taskDueDate">
     <span th:if="${#fields.hasErrors('taskDueDate')}" th:errors="*{taskDueDate}"></span>
     <input class="button--submit--task" type="submit" value="Add Task">
 </form>

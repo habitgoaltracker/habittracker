@@ -194,7 +194,7 @@ body {
 }
 
 .newcattext, textarea {
-    background-color: #36d478;
+    background-color: #429577;
 }
 
 .newhabittext, textarea {
@@ -232,7 +232,7 @@ input {
 }
 
 .button--submit--newcat {
-    background-color: #2fff4b;
+    background-color: #56f2be;
     border-radius: 5px;
     color: white;
     display: inline-block;
@@ -295,7 +295,7 @@ input {
 }
 
 .newcat--body {
-    background-color: #8fffab;
+    background-color: #58c893;
 }
 
 .newhabit--body {

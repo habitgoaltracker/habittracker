@@ -9,7 +9,8 @@
 <div class="wrapper">
 <h1>New habit</h1>
     <form class="habitform" action="#" th:action="@{${#httpServletRequest.requestURI}}" th:object="${habit}" method="post">
-        <input class ="newhabittext" type="text" th:field="*{name}" id="name" placeholder="Name">
+        <label for="name">Name:</label>
+        <input class ="newhabittext" type="text" th:field="*{name}" id="name">
         <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
         <input class="button--submit--habit" type="submit" value="Add Habit">
     </form>
