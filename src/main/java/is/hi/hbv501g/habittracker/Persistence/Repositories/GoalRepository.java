@@ -11,6 +11,5 @@ public interface GoalRepository extends JpaRepository<Goal, Long> {
     Goal save(Goal goal);
     void deleteById(long id);
     List<Goal> findAll();
-    List<Goal> findByName(String name);
     Goal findByID(long id);
 }

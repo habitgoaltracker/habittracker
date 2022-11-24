@@ -12,13 +12,6 @@ import java.util.List;
 public interface CategoryService {
 
     /**
-     * Saves a category to the database - or - Finds a category by its name.
-     * @param name the category to be saved - or - the name of the category.
-     * @return the saved category - or - the category equivalent to the name (if any).
-     */
-    Category findByName(String name);
-
-    /**
      * Finds a category by its ID.
      * @param ID the ID of the category.
      * @return the category (or categories) that have an equivalent ID (if any).

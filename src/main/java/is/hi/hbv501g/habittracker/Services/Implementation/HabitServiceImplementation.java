@@ -31,11 +31,6 @@ public class HabitServiceImplementation implements HabitService {
     }
 
     @Override
-    public Habit findByName(String name) {
-        return habitRepository.findByName(name).get(0);
-    }
-
-    @Override
     public Habit findByID(long id) {
         return habitRepository.findByID(id);
     }

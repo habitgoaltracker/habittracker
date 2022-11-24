@@ -12,13 +12,6 @@ import java.util.List;
 public interface HabitService {
 
     /**
-     * Finds a habit by its name.
-     * @param name The name of the habit.
-     * @return The habit (or habits) equivalent to the name (if any).
-     */
-    Habit findByName(String name);
-
-    /**
      * Finds a habit by its ID.
      * @param ID The ID of the habit.
      * @return The habit (or habits) that have an equivalent ID (if any).
