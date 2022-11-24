@@ -21,10 +21,6 @@ public class CategoryServiceImplementation implements CategoryService {
     public CategoryServiceImplementation(CategoryRepository categoryRepository){
         this.categoryRepository = categoryRepository;
     }
-    @Override
-    public Category findByName(String name) {
-        return categoryRepository.findByName(name).get(0);
-    }
 
     @Override
     public Category findByID(long ID) {

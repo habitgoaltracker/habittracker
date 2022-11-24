@@ -95,14 +95,4 @@ public class UserController {
         return "redirect:/login";
     }
 
-    //TO BE DELETED
-    @RequestMapping(value = "/loggedin", method = RequestMethod.GET)
-    public String loggedinGET(HttpSession session, Model model){
-        User sessionUser = (User) session.getAttribute("LoggedInUser");
-        if(sessionUser != null) {
-            model.addAttribute("LoggedInUser", sessionUser);
-            return "LoggedInUser";
-        }
-        return "redirect:/";
-    }
 }

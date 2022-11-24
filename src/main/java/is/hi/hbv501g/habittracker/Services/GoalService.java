@@ -9,14 +9,6 @@ import java.util.List;
 public interface GoalService {
 
     /**
-     *
-     * Saves a goal to the database - or - Finds a goal by its name.
-     * @param goal the goal to be saved - or - the name of the goal.
-     * @return the saved goal - or - the goal equivalent to the name (if any).
-     */
-    Goal findByName(String goal);
-
-    /**
      * Finds a goal by its ID.
      * @param id the ID of the goal.
      * @return the goal (or goals) that have an equivalent ID (if any).
