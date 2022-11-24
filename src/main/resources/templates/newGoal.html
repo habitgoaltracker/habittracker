@@ -9,12 +9,12 @@
 <div class="wrapper">
     <h1>New goal</h1>
     <form class="newgoalform" action="#" th:action="@{${#httpServletRequest.requestURI}}" th:object="${goal}" method="post">
-        <label for="name">Name</label>
-        <input class="newgoaltext" type="text" th:field="*{name}" id="name" placeholder="Name">
+        <label for="name">Name:</label>
+        <input class="newgoaltext" type="text" th:field="*{name}" id="name">
         <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
 
         <label for="goalDueDate">Due date:</label>
-        <input class="newgoaltext" type="date" th:field="*{goalDueDate}" id="goalDueDate" placeholder="Due date">
+        <input class="newgoaltext" type="date" th:field="*{goalDueDate}" id="goalDueDate">
         <span th:if="${#fields.hasErrors('goalDueDate')}" th:errors="*{goalDueDate}"></span>
         <input class="button--submit--goal" type="submit" value="Add Goal">
     </form>
